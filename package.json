@@ -3,12 +3,17 @@
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "dev":"index.ts"
+    "dev": "index.ts"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.6.1"
   }
 }
