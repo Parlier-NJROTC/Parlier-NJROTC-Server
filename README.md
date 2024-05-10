@@ -15,6 +15,8 @@ If you are using node or deno some how, copy the code and package.json
 Run the equivalant of sudo bun install (sudo npm install or what ever deno uses)
 No idea how it will run so any errors, you try to figure them out.
 
+Make sure to also download the Dashboard-Frontend and put it in here, don't worry it will be fine. After that go inside that folder and run: sudo bun install && sudo bun run build
+
 ### Error Handleing
 
 if an error happens when editing (Mac):
