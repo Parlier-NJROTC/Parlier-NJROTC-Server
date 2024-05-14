@@ -3,7 +3,9 @@ import { MongoClient } from "mongodb";
 
 
 
-const Client = new MongoClient(process.env.MONGODB_URI!).db("Omega_DB")
+const Database = new MongoClient(process.env.MONGODB_URI!).db("Omega_DB")
+const Logins = Database.collection("Logins")
+const Cadets = Database.collection("Cadets")
 
 const app = express();
 const port = 8080 || process.env.PORT;
@@ -26,11 +28,13 @@ interface Login{
   password:string;
 }
 
-app.post("/login",(req,res)=>{
+
+app.post("/login",async (req,res)=>{
   let Cridentials = req.body
-  console.log(Cridentials)
-  console.log("recieved")
-  res.status(300).send()
+  let usr = await Logins.findOne({"username":req.body.username})
+  let cadet = await Cadets.findOne({"_id":usr!.user})
+  console.log(cadet)
+
 })
 
 
