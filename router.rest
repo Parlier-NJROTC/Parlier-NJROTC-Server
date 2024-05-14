@@ -1,1 +1,10 @@
-GET http://localhost:8080
+
+
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "username":"Joe",
+    "password":"mamaaaaa"
+}
