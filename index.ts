@@ -31,9 +31,17 @@ interface Login{
 
 app.post("/login",async (req,res)=>{
   let Cridentials = req.body
-  let usr = await Logins.findOne({"username":req.body.username})
-  let cadet = await Cadets.findOne({"_id":usr!.user})
-  console.log(cadet)
+  let usr = await Logins.findOne({"username":req.body.username}).then((dude)=>{
+    console.log(dude)
+    if(dude!=null && dude!=null && dude!=undefined){
+      Cadets.findOne({"_id":dude.user}).then((cadet)=>{
+        console.log(cadet)
+      })
+    }
+  }).catch(()=>{
+    console.log("invalid")
+  }
+  )
 
 })
 
