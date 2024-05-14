@@ -175,6 +175,8 @@ dist
 .DS_Store
 
 # Le frontend of the website
-Frontend/
-Frontend/*
-Frontend/README.md
+Dashboard-Frontened/
+Dashboard-Frontened/*
+#no idea but the read me is special
+Dashboard-Frontened/README.md
+
