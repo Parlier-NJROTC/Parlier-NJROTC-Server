@@ -17,6 +17,10 @@ No idea how it will run so any errors, you try to figure them out.
 
 Make sure to also download the Dashboard-Frontend and put it in here, don't worry it will be fine. After that go inside that folder and run: sudo bun install && sudo bun run build
 
+### .env file tutorial
+
+Look at the lines with `process.env.VARIABLE_NAME` these lines are fetched from the .env file. Bun Automatically reads these files to get the process.env.VARIABLES no need to import it. The reason why its in the gitignore is because it can contain secrets like usernames and passwords. An example .env file will be uploaded to the repo. Look at the .env for a bit more info.
+
 ### Error Handleing
 
 if an error happens when editing (Mac):

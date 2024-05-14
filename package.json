@@ -4,14 +4,13 @@
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/express": "^4.17.21",
-    "nodemon": "^3.1.0"
+    "@types/express": "^4.17.21"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "dev": "index.ts"
+    "dev": " --hot index.ts"
   },
   "dependencies": {
     "express": "^4.19.2",
