@@ -5,5 +5,6 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-    "username":"Jibarram5"
+    "username":"Jibarram5",
+    "password":"right"
 }

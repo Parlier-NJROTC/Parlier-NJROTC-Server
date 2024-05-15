@@ -11,6 +11,9 @@ const app = express();
 const port = 8080 || process.env.PORT;
 
 
+function isEmpty(text:string){
+  return text.length==0 && text == null && text == undefined
+}
 
 app.use(express.json())
 
@@ -32,11 +35,13 @@ interface Login{
 app.post("/login",async (req,res)=>{
   let Cridentials = req.body
   let usr = await Logins.findOne({"username":req.body.username}).then((dude)=>{
-    console.log(dude)
-    if(dude!=null && dude!=null && dude!=undefined){
+    if(dude!=null && dude!=null && dude!=undefined && dude!.password == req.body.password){
+      console.log("valid")
       Cadets.findOne({"_id":dude.user}).then((cadet)=>{
         console.log(cadet)
       })
+    }else{
+      console.log("internal error maybe wrong password or user")
     }
   }).catch(()=>{
     console.log("invalid")
