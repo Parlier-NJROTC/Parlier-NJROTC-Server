@@ -1,6 +1,6 @@
 {
   "name": "parlier-njrotc-backend",
-  "module": "index.ts",
+  "module": "app.ts",
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest",
@@ -10,7 +10,7 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "dev": " --hot index.ts"
+    "dev": " --hot app.ts"
   },
   "dependencies": {
     "express": "^4.19.2",
