@@ -10,10 +10,12 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "dev": " --hot app.ts"
+    "dev": "bun app.ts"
   },
   "dependencies": {
     "express": "^4.19.2",
-    "mongodb": "^6.6.1"
+    "jose": "^5.4.0",
+    "mongoose": "^8.4.1",
+    "socket.io": "^4.7.5"
   }
 }
