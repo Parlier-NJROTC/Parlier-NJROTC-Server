@@ -1,7 +1,9 @@
+import { type Request, type Response, type NextFunction } from 'express';
 import mongoose from "mongoose";
 const Schema = mongoose.Schema
 
 // I tried to not repeat my self, instead I shot myself in the foot
+// TimeWastedHere = 5 hours
 interface UserI{
     name:Array<String>,
     primaryLastName:String,

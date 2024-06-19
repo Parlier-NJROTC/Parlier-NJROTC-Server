@@ -1,4 +1,5 @@
 // any shenanigans you want goes in here
+// and easter eggs
 
 import express from "express";
 const router = express.Router()
