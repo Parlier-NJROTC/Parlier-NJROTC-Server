@@ -17,16 +17,15 @@ function EndingErrorHandler(err: Error, req: Request, res: Response, next: NextF
     })
     console.error()
     console.error(`
-        \n
-        + ---------------------------------------------- +
-        |  Error Information                             |
-        + ---------------------------------------------- +
-        Time: [${new Date().toISOString()}]
-        Method: ${req.method}
-        url: ${req.url}
-        data: ${req.body}
-        Message: ${err.message}
-        `);
++ ---------------------------------------------- +
+|  Error Information                             |
++ ---------------------------------------------- +
+Time: [${new Date().toISOString()}]
+Method: ${req.method}
+url: ${req.url}
+data: ${req.body}
+Message: ${err.message}
+`);
     return -1;
 }
 

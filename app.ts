@@ -1,6 +1,7 @@
 import express from "express";
 import session from "express-session";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 // Express Routes
 import login from "./src/login"
 import home from "./src/home";
@@ -12,17 +13,24 @@ import EndingErrorHandler from "./src/EndingErrorHandler";
 const app = express();
 const PORT = 8080 || process.env.PORT;
 
-mongoose.connect(process.env.MONGODB_URI+"/Omega_DB" as string)
+mongoose.connect(process.env.MONGODB_URI+"Omega_DB" as string)
 app.use(express.json())
+app.use(cookieParser("ChangeBeforePushingToDevelopment"))
 app.use(session({
   secret:"ChangeBeforePushingToDevelopment",
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: false }
 }))
 
 app.get("/", (req, res) => {
   res.send("Hello world");
+  //res.cookie("Hello","World",{maxAge:600000,signed:true})
+  console.log(req.sessionID);
+  console.log(req.session);
+  //@ts-ignore
+  console.log(req.session.isAuth);
+
 });
 
 app.get("/coffee", (req, res) => {
@@ -43,3 +51,5 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}...`);
   console.log(`URL: https://localhost:${PORT}`)
 });
+
+console.log("success")

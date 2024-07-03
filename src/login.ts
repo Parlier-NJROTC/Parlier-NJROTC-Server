@@ -1,6 +1,6 @@
 // Dashboard/login
 import express, { type Request, type Response, type NextFunction } from "express";
-import session from 'express-session';
+import session, { Session } from 'express-session';
 import mongoose from "mongoose";
 
 import { User, type UserI} from "./users.ts"
@@ -9,12 +9,10 @@ import Home, {NewSession} from "./home.ts"
 const Schema = mongoose.Schema;
 const SecrectKey = "JaTqDy1HzjL5EHM9Q21u18Kdp2F6MqbS" // will be moved to a .env file
 const router = express.Router();
-router.use(express.json());
-
 const LoginSchema = new Schema({
     username:String,
     password:String,
-    userId: mongoose.Schema.Types.ObjectId
+    userId:String
 })
 const Login = mongoose.model("Login",LoginSchema,"Logins")
 
@@ -54,6 +52,11 @@ function ValidateLogin(req:Request,res:Response,next:NextFunction){
 }
 
 
+interface UserSession extends Session{
+    isAuth:boolean;
+    username:string
+}
+
 
 router.post("/login",ValidateLogin,async (req,res,next)=>{
     let data:loginBody = req.body
@@ -65,11 +68,15 @@ router.post("/login",ValidateLogin,async (req,res,next)=>{
     }
 
     if(login.password === data.password ){
-        NewSession(req,data.username)
-        res.status(200).send("logged in");
-        return 0;
+        res.status(200).send("logging in...");
+        res.locals.objectId = login.userId!
+        //@ts-ignore
+        req.session.isAuth = true;
+        //@ts-ignore
+        req.session.user = (await User.findById(res.locals.objectId))!;
+        next()
     }
-})
+},NewSession)
 
 
 router.post("/signup",ValidateLogin,async (req,res)=>{
