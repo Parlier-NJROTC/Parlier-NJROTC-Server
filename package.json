@@ -1,6 +1,6 @@
 {
-  "name": "parlier-njrotc-backend",
-  "module": "app.ts",
+  "name": "express-session",
+  "module": "index.ts",
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest",
@@ -12,7 +12,7 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "dev": "bun app.ts"
+    "dev": "bun index.ts"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
