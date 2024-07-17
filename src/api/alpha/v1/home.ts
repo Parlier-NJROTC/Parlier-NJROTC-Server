@@ -7,10 +7,10 @@ import { User, type UserSchema } from './users';
 const router = express.Router()
 router.use(cookieParser("ChangeBeforePushingToDevelopment"))
 router.use(session({
-  secret:"ChangeBeforePushingToDevelopment",
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false, maxAge:9999*99 }
+    secret:"ChangeBeforePushingToDevelopment",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge:9999*99 }
 }))
 router.use(isAuthed)
 

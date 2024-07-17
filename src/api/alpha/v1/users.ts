@@ -5,10 +5,10 @@ import session from "express-session";
 const router = Router()
 router.use(cookieParser("ChangeBeforePushingToDevelopment"))
 router.use(session({
-  secret:"ChangeBeforePushingToDevelopment",
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false, maxAge:9999*99 }
+    secret:"ChangeBeforePushingToDevelopment",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge:9999*99 }
 }))
 
 
@@ -39,13 +39,12 @@ All user schemas defined here
 // TimeWastedHere = 5 hours
 // When defining a Schema , ; and "" (nothing) are valid
 interface UserSchema{
-    objectId: string;
     name:[string],
     primaryLastName:string,
-    rank:{ type:string, default:"Seaman Recurit"},
+    rank:string,
     class:number,
     leadership:Boolean,
-    perms:{ type:string, default:"CADET"}, // possible values: CO, XO, SEL, OPS, SUPPLY, ADMIN, FUN, IT, or INSTRUCTOR
+    perms:string, // possible values: CO, XO, SEL, OPS, SUPPLY, ADMIN, FUN, IT, or INSTRUCTOR
     ribbons:[string]
 }
 // They have to be capital when defining a schema, I don't make the rules
@@ -117,17 +116,24 @@ router.post("/login",async (req,res)=>{
 
 // Temporary sign up path for testing, will not make it to the release
 router.post("/signup",ValidateLogin,async (req,res)=>{
-    let data = req.body
-    let userdata = req.body.userData
+    let data:LoginSchema = req.body
+    let userdata:UserSchema = req.body.userData
     if(await Login.findOne({username:data.username})){
         res.status(409).send("Error: User already exists")
         return
     }
-    if(!userdata.name){
-        res.status(400).send("No name specified")
-        return
+    if(!userdata){
+        userdata = {
+            primaryLastName:"",
+            rank:"Seaman Recruit",
+            class:0,
+            leadership:false,
+            perms:"cadet",
+            ribbons:[""],
+            name:[data.username]
+        }
     }
-    if(userdata.primaryLastName.trim()){
+    if(!userdata.primaryLastName && userdata.primaryLastName.trim()){
         // TYPESCRIPT CAN GO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA \/ The error line ends here
         // I fixed it now
         userdata.primaryLastName = userdata.name[userdata.name.length-1]
@@ -159,6 +165,7 @@ router.post("/signup",ValidateLogin,async (req,res)=>{
 
 function ValidateLogin(req:Request,res:Response,next:NextFunction){
     let login:LoginSchema = req.body
+    console.log(login)
     if(!login.username || login.username.trim() == ""){
         res.status(400).send("No username specified")
         return

@@ -2,7 +2,8 @@
 
 
 
-POST http://localhost:8080/login
+POST http://localhost:8080/api/alpha/v1/users/signup
+
 Content-Type: application/json
 
 {
