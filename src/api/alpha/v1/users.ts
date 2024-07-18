@@ -93,14 +93,15 @@ router.get("/testhome",(req,res)=>{
 
 
 router.post("/login",async (req,res)=>{
-    
+    console.log("recived login request")
     let data:LoginSchema = req.body
+    console.log(data)
+    console.log(data.username)
     let login = await Login.findOne({username:data.username})
     if(!login){
-        res.status(404).send(false)
-        return 0;
+        res.status(200).send(false)
+        return;
     }
-    
     if(login.password === data.password ){
         //@ts-ignore
         req.session.isAuthed = true
@@ -109,17 +110,25 @@ router.post("/login",async (req,res)=>{
         //req.session.betterStayAuthed = "yee"
         res.status(200).send(true)
         // why do sessions work now
-        console.log("nothing explained")
+        //console.log("nothing explained")
+        return
     }
+    res.status(200).send(false)
+    return
 })
-
+router.get("/testing",(req,res)=>{
+    res.status(200).send("hello")
+})
 
 // Temporary sign up path for testing, will not make it to the release
 router.post("/signup",ValidateLogin,async (req,res)=>{
     let data:LoginSchema = req.body
+    console.log(data)
     let userdata:UserSchema = req.body.userData
     if(await Login.findOne({username:data.username})){
-        res.status(409).send("Error: User already exists")
+        res.status(409).json(
+            {error:"User Already Exists"}
+        )
         return
     }
     if(!userdata){
@@ -165,6 +174,7 @@ router.post("/signup",ValidateLogin,async (req,res)=>{
 
 function ValidateLogin(req:Request,res:Response,next:NextFunction){
     let login:LoginSchema = req.body
+    console.log(req.method)
     console.log(login)
     if(!login.username || login.username.trim() == ""){
         res.status(400).send("No username specified")

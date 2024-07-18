@@ -1,6 +1,7 @@
 import express from "express"
 import session from "express-session"
 import cookieParser from "cookie-parser"
+import cors from "cors"
 import mongoose from "mongoose"
 
 // api routes
@@ -9,8 +10,7 @@ import api from "./src/api"
 const PORT = process.env.port || 8080
 const app = express()
 
-// its 9 not one
-console.log(6/2*(1+2))
+app.use(cors())
 
 mongoose.connect("mongodb://localhost:27017/"+"Omega_DB" as string)
 
