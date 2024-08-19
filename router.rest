@@ -1,12 +1,11 @@
 
 
+// Dont use this, use postman. For some reason this don't work
 
-
-POST http://localhost:8080/api/alpha/v1/users/signup
+POST http://localhost:8080/api/alpha/v1/users/signup HTTP/1.1
 
 Content-Type: application/json
 
 {
-    "username":"SaulGoodMan",
-    "password":"Parlier1"
+    "username":"aa"
 }

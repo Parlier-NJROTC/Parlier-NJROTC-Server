@@ -1,8 +1,9 @@
-import { Router ,type Request, type Response, type NextFunction } from "express";
+import { Router, json ,type Request, type Response, type NextFunction } from "express";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 
 const router = Router()
+router.use(json())
 router.use(cookieParser("ChangeBeforePushingToDevelopment"))
 router.use(session({
     secret:"ChangeBeforePushingToDevelopment",
@@ -10,7 +11,6 @@ router.use(session({
     saveUninitialized: false,
     cookie: { secure: false, maxAge:9999*99 }
 }))
-
 
 
 router.get("/",(req,res)=>{

@@ -12,7 +12,7 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "dev": "bun index.ts"
+    "dev": "bun --hot index.ts"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",

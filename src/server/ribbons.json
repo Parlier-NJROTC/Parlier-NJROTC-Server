@@ -1,0 +1,138 @@
+{
+    "Meritorious Achievement":{
+        "_comment":"Change to INSTRUCTOR if nessesary, oh yeah anything with underscores are ignored/unused by the main program",
+        "awarded":true,
+        "rewarder":"MANEGER"
+    },
+    "Distinguished Unit":{
+        "_comment":"same case here",
+        "awarded":true,
+        "rewarder":"MANEGER"
+    },
+    "Distinguished Cadet":{
+        "awarded":true,
+        "rewarder":"INSTRUCTOR"
+    },
+    "Honor Cadet":{
+        "_comment":"Still working on the requirements part, if awarded is false but rewarder is set then rewarder decides when its awared",
+        "awarded":false,
+        "rewarder":"INSTRUCTOR",
+        "Range":"Class",
+        "requirements":{
+            "Highest":["Grade"]
+        },
+        "other":{
+            "Amount":1,
+            "Time":"yearly"
+        }
+    },
+    "Cadet Achievement":{
+        "_comment":"Any number less than 0 will mean something, -1 meaning any amount can be awared",
+        "awarded":true,
+        "rewarder":"MANEGER",
+        "Range":"Unit",
+        "requirements":{
+            "Highest":[]
+        }, 
+        "other":{
+            "Amount":-1,
+            "Time":"yearly"
+        }
+    },
+    "Unit Achievement":{
+        "_comment":"in this case -2 means everyone, (I just realized this will be a mess)",
+        "awarded":true,
+        "rewarder":"MANEGER",
+        "Range":"Unit",
+        "requirements":{
+            "Highest":[]
+        }, 
+        "other":{
+            "Amount":-2,
+            "Time":"yearly"
+        }
+    },
+    "Aptitude Award":{
+        "_comment":"0 will mean 'to be determined' (this applies to all values in this object) or none or disabled",
+        "awarded":true,
+        "rewarder":"INSTRUCTOR",
+        "Range":"Unit",
+        "requirements":{
+            "Highest":[]
+        }, 
+        "other":{
+            "Amount":0,
+            "Time":"yearly"
+        }
+    },
+    "NS4 outstanding cadet":{
+        "_comment":"this is gonna be a reapeating mess",
+        "awarded":true,
+        "rewarder":"INSTRUCTOR",
+        "Range":"Class",
+        "requirements":{
+            "Highest":[],
+            "Class":4
+        }, 
+        "other":{
+            "Amount":-1,
+            "Time":"yearly"
+        }
+    },
+    "NS3 outstanding cadet":{
+        "_comment":"this is gonna be a reapeating mess",
+        "awarded":true,
+        "rewarder":"INSTRUCTOR",
+        "Range":"Class",
+        "requirements":{
+            "Highest":[],
+            "Class":3
+        }, 
+        "other":{
+            "Amount":-1,
+            "Time":"yearly"
+        }
+    },
+    "NS2 outstanding cadet":{
+        "_comment":"just adding class value so that its not possible to give this ribbon to people not in class",
+        "awarded":true,
+        "rewarder":"INSTRUCTOR",
+        "Range":"Class",
+        "requirements":{
+            "Highest":[],
+            "Class":2
+        }, 
+        "other":{
+            "Amount":-1,
+            "Time":"yearly"
+        }
+    },
+    "NS1 outstanding cadet":{
+        "_comment":"this is gonna be a reapeating mess",
+        "awarded":true,
+        "rewarder":"INSTRUCTOR",
+        "Range":"Class",
+        "requirements":{
+            "Highest":[],
+            "Class":1
+        }, 
+        "other":{
+            "Amount":-1,
+            "Time":"yearly"
+        }
+    },
+    "Exemplary Conduct":{
+        "_comment":"Should be auto rewarded at the end of year",
+        "awarded":false,
+        "rewarder":"INSTRUCTOR",
+        "Range":"Class",
+        "requirements":{
+            "Highest":[],
+            "Trouble":false
+        },
+        "other":{
+            "Amount":1,
+            "Time":"yearly"
+        }
+    }
+}

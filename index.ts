@@ -12,7 +12,7 @@ const app = express()
 
 app.use(cors())
 
-mongoose.connect("mongodb://localhost:27017/"+"Omega_DB" as string)
+mongoose.connect(process.env.MONGO_DB_URI+"/Omega_DB" as string)
 
 
 

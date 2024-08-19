@@ -1,8 +1,10 @@
+// default permissions everyone will have
+
 import express, { type Request, type Response, type NextFunction } from 'express';
 import session, { type Session } from "express-session";
 import cookieParser from "cookie-parser";
 
-import { User, type UserSchema } from './users';
+import { User, type UserSchema } from '../users';
 
 const router = express.Router()
 router.use(cookieParser("ChangeBeforePushingToDevelopment"))
@@ -20,21 +22,32 @@ interface UserSession extends Session{
     //data:UserSchema;
 }
 
+/* Request Info */
 
 router.get("/",async (req,res)=>{
     const userSession = req.session as UserSession;
     res.status(200).send(userSession.isAuthed)
 });
-router.get("/GeneralInfo",async (req,res)=>{
+router.get("/Info/General",async (req,res)=>{
     const userSession = req.session as UserSession;
     let userdata = await User.findById(userSession.userId).select(`-_id name primaryLastName rank class leadership`)
     res.status(200).send(userdata)
 })
-router.get("/GetValue/:usrValue", async (req,res)=>{
+router.get("/Info/:usrValue", async (req,res)=>{
     const userSession = req.session as UserSession;
     let userdata = await User.findById(userSession.userId).select(`-_id ${req.params.usrValue}`)
     res.status(200).send(userdata)
 });
+
+/* Request stuff to be added */
+
+router.post("/ribbons/:ribbon", async (req,res)=>{
+    const userSession = req.session as UserSession;
+    
+
+})
+
+
 
 function isAuthed(req:Request,res:Response,next:NextFunction){
     const userSession = req.session as UserSession;
