@@ -1,3 +1,4 @@
+// route: /home
 // default permissions everyone will have
 
 import express, { type Request, type Response, type NextFunction } from 'express';
@@ -5,6 +6,10 @@ import session, { type Session } from "express-session";
 import cookieParser from "cookie-parser";
 
 import { User, type UserSchema } from '../users';
+
+// Routers
+import RequestRouter from './request';
+
 
 const router = express.Router()
 router.use(cookieParser("ChangeBeforePushingToDevelopment"))
@@ -15,6 +20,9 @@ router.use(session({
     cookie: { secure: false, maxAge:9999*99 }
 }))
 router.use(isAuthed)
+
+//import routers
+router.use(RequestRouter)
 
 interface UserSession extends Session{
     isAuthed:boolean;
@@ -41,11 +49,7 @@ router.get("/Info/:usrValue", async (req,res)=>{
 
 /* Request stuff to be added */
 
-router.post("/ribbons/:ribbon", async (req,res)=>{
-    const userSession = req.session as UserSession;
-    
 
-})
 
 
 
