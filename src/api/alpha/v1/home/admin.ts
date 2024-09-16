@@ -1,9 +1,8 @@
-// route for admin
+// route: /home/admin
 import express, { type Request, type Response, type NextFunction } from 'express';
 import session, { type Session } from "express-session";
-import cookieParser from "cookie-parser";
-import mongoose from "mongoose";
 import {User} from "../users"
+import {RibbonRequest} from "./request"
 
 
 const router = express.Router()
@@ -21,13 +20,25 @@ router.get("/users/:id",async (req,res)=>{
     let userdata = await User.findById(userSession.userId).select(`-_id ${req.params.id}`)
     res.status(200).send(userdata)
 })
-router.post("/user")
-router.delete("/user/:id")
+router.get("/users/:id",async (req,res)=>{
+    const userSession = req.session as UserSession;
+    let userdata = await User.findById(userSession.userId).select(`-_id ${req.params.id}`)
+    res.status(200).send(userdata)
+})
 
-router.get("/ribbons/:id")
-router.post("/ribbons/:id")
+// get requests from one date or another
+// url format: http:// api/alpha/v1/home/admin/requests/ribbons/?start_time=2023-01-01T14:00:00Z&end_time=2023-01-01T17:00:00Z
+router.get("/requests/ribbons/", async (req,res)=>{
+    const userSession = req.session as UserSession;
+    const { start_time, end_time }  = req.query;
 
-
+    const startTime = new Date(start_time as string).toISOString();
+    const endTime = new Date(end_time as string).toISOString();
+    const ribbons = await RibbonRequest.find({
+        date_requested: { $gte: new Date(startTime), $lte: new Date(endTime) }
+    }).sort({ createdAt: -1 });
+    console.log(ribbons)
+})
 
 async function checkIfAdmin(req:Request,res:Response,next:NextFunction){
     const userSession = req.session as UserSession;
@@ -40,3 +51,5 @@ async function checkIfAdmin(req:Request,res:Response,next:NextFunction){
         next();
     }
 }
+
+export default router
