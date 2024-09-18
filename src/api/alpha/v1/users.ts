@@ -99,6 +99,7 @@ router.post("/login",async (req,res)=>{
     console.log(data.username)
     let login = await Login.findOne({username:data.username})
     if(!login){
+        console.log("failed, no user found")
         res.status(200).send(false)
         return;
     }
@@ -108,11 +109,13 @@ router.post("/login",async (req,res)=>{
         //@ts-ignore
         req.session.userId = login.userId;
         //req.session.betterStayAuthed = "yee"
+        console.log("success")
         res.status(200).send(true)
         // why do sessions work now
         //console.log("nothing explained")
         return
     }
+    console.log("failed, wrong password")
     res.status(200).send(false)
     return
 })
