@@ -97,10 +97,14 @@ router.post("/login",async (req,res)=>{
     let data:LoginSchema = req.body
     console.log(data)
     console.log(data.username)
+    console.log("login request from"+req.sessionID)
     let login = await Login.findOne({username:data.username})
     if(!login){
         console.log("failed, no user found")
-        res.status(200).send(false)
+        res.status(200).json({
+            success:false,
+            message:"No Username Found"
+        });
         return;
     }
     if(login.password === data.password ){
@@ -110,13 +114,19 @@ router.post("/login",async (req,res)=>{
         req.session.userId = login.userId;
         //req.session.betterStayAuthed = "yee"
         console.log("success")
-        res.status(200).send(true)
+        res.status(200).json({
+            success:true,
+            message:"Authorized"
+        });
         // why do sessions work now
         //console.log("nothing explained")
         return
     }
     console.log("failed, wrong password")
-    res.status(200).send(false)
+    res.status(401).json({
+        success:false,
+        message:"Incorrect Password"
+    });
     return
 })
 router.get("/testing",(req,res)=>{

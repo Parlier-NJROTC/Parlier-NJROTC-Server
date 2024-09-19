@@ -36,12 +36,12 @@ router.get("/",async (req,res)=>{
     const userSession = req.session as UserSession;
     res.status(200).send(userSession.isAuthed)
 });
-router.get("/Info/General",async (req,res)=>{
+router.get("/info/General",async (req,res)=>{
     const userSession = req.session as UserSession;
     let userdata = await User.findById(userSession.userId).select(`-_id name primaryLastName rank class leadership`)
     res.status(200).send(userdata)
 })
-router.get("/Info/:usrValue", async (req,res)=>{
+router.get("/info/:usrValue", async (req,res)=>{
     const userSession = req.session as UserSession;
     let userdata = await User.findById(userSession.userId).select(`-_id ${req.params.usrValue}`)
     res.status(200).send(userdata)
@@ -55,7 +55,7 @@ router.get("/Info/:usrValue", async (req,res)=>{
 
 function isAuthed(req:Request,res:Response,next:NextFunction){
     const userSession = req.session as UserSession;
-    console.log(req.sessionID)
+    console.log("home request from"+req.sessionID)
     console.log(userSession.isAuthed)
     if(!userSession.isAuthed){
         res.status(401).send("Unauthorized, log in")
