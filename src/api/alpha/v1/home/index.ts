@@ -36,7 +36,7 @@ router.get("/",async (req,res)=>{
     const userSession = req.session as UserSession;
     res.status(200).send(userSession.isAuthed)
 });
-router.get("/info/General",async (req,res)=>{
+router.get("/info",async (req,res)=>{
     const userSession = req.session as UserSession;
     let userdata = await User.findById(userSession.userId).select(`-_id name primaryLastName rank class leadership`)
     res.status(200).send(userdata)
