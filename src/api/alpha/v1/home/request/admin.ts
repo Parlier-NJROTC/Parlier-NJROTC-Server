@@ -1,8 +1,8 @@
 // route: /home/admin
 import express, { type Request, type Response, type NextFunction } from 'express';
 import session, { type Session } from "express-session";
-import {User} from "../users"
-import {RibbonRequest} from "./request"
+import {User} from "../../users"
+import {RibbonRequest} from "."
 
 
 const router = express.Router()

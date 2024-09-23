@@ -15,10 +15,12 @@
     "dev": "bun --hot index.ts"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.1",
     "socket.io": "^4.7.5"
   }

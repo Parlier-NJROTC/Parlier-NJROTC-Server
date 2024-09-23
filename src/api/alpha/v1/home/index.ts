@@ -2,8 +2,16 @@
 // default permissions everyone will have
 
 import express, { type Request, type Response, type NextFunction } from 'express';
-import session, { type Session } from "express-session";
-import cookieParser from "cookie-parser";
+import jwt from 'jsonwebtoken';
+
+declare global {
+  namespace Express {
+    interface Request {
+      userId?: string;
+    }
+  }
+}
+
 
 import { User, type UserSchema } from '../users';
 
@@ -12,39 +20,30 @@ import RequestRouter from './request';
 
 
 const router = express.Router()
-router.use(cookieParser("ChangeBeforePushingToDevelopment"))
-router.use(session({
-    secret:"ChangeBeforePushingToDevelopment",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false, maxAge:9999*99 }
-}))
+const SECRET_KEY = "Emergenecy"
+
 router.use(isAuthed)
 
 //import routers
 router.use(RequestRouter)
 
-interface UserSession extends Session{
-    isAuthed:boolean;
-    userId:string;
-    //data:UserSchema;
-}
-
 /* Request Info */
-
-router.get("/",async (req,res)=>{
-    const userSession = req.session as UserSession;
-    res.status(200).send(userSession.isAuthed)
-});
 router.get("/info",async (req,res)=>{
-    const userSession = req.session as UserSession;
-    let userdata = await User.findById(userSession.userId).select(`-_id name primaryLastName rank class leadership`)
+    const User_ID = req.userId
+    console.log("User id: "+User_ID)
+    let userdata = await User.findById(User_ID).select(`-_id name primaryLastName rank class leadership`)
     res.status(200).send(userdata)
+    console.log("data sent")
 })
 router.get("/info/:usrValue", async (req,res)=>{
-    const userSession = req.session as UserSession;
+    const User_ID = req.userId
+    let userdata = await User.findById(User_ID).select(`-_id ${req.params.usrValue}`)
+    res.status(200).send(userdata)
+   /**
+    *  const userSession = req.session as UserSession;
     let userdata = await User.findById(userSession.userId).select(`-_id ${req.params.usrValue}`)
     res.status(200).send(userdata)
+    */
 });
 
 /* Request stuff to be added */
@@ -54,6 +53,23 @@ router.get("/info/:usrValue", async (req,res)=>{
 
 
 function isAuthed(req:Request,res:Response,next:NextFunction){
+    const AuthHeader = req.headers.authorization
+
+    if (!AuthHeader || !AuthHeader.startsWith('Bearer ')) {
+        res.status(401).json({ error: 'No token, login?' });
+        return
+    }
+    const Token = AuthHeader.split(' ')[1]
+
+    jwt.verify(Token,SECRET_KEY,(err,decoded)=>{
+        if(err){
+            res.status(403).json({ error: 'nuh uh, u is no hackin us' });
+            return
+        }
+        req.userId = (decoded as any).id;
+    })
+    next()
+    /*
     const userSession = req.session as UserSession;
     console.log("home request from"+req.sessionID)
     console.log(userSession.isAuthed)
@@ -67,7 +83,7 @@ function isAuthed(req:Request,res:Response,next:NextFunction){
         })
     }else{
         next();
-    }
+    }*/
 }
 
 export default router

@@ -22,12 +22,14 @@
             "Highest":["Grade"]
         },
         "other":{
-            "Amount":1,
+            "TimesRewarded":1,
+            "DatesRewarded":[],
+            "AmountRewarded":1,
             "Time":"yearly"
         }
     },
     "Cadet Achievement":{
-        "_comment":"Any number less than 0 will mean something, -1 meaning any amount can be awared",
+        "_comment":"Any number less than 0 will mean something, -1 meaning any amountRewarded can be awared",
         "awarded":true,
         "rewarder":"MANEGER",
         "Range":"Unit",
@@ -35,7 +37,9 @@
             "Highest":[]
         }, 
         "other":{
-            "Amount":-1,
+            "TimesRewarded":1,
+            "DatesRewarded":[],
+            "AmountRewarded":-1,
             "Time":"yearly"
         }
     },
@@ -48,7 +52,9 @@
             "Highest":[]
         }, 
         "other":{
-            "Amount":-2,
+            "TimesRewarded":1,
+            "DatesRewarded":[],
+            "AmountRewarded":-2,
             "Time":"yearly"
         }
     },
@@ -61,7 +67,9 @@
             "Highest":[]
         }, 
         "other":{
-            "Amount":0,
+            "TimesRewarded":1,
+            "DatesRewarded":[],
+            "AmountRewarded":0,
             "Time":"yearly"
         }
     },
@@ -75,7 +83,9 @@
             "Class":4
         }, 
         "other":{
-            "Amount":-1,
+            "TimesRewarded":1,
+            "DatesRewarded":[],
+            "AmountRewarded":-1,
             "Time":"yearly"
         }
     },
@@ -89,7 +99,9 @@
             "Class":3
         }, 
         "other":{
-            "Amount":-1,
+            "TimesRewarded":1,
+            "DatesRewarded":[],
+            "AmountRewarded":-1,
             "Time":"yearly"
         }
     },
@@ -103,7 +115,9 @@
             "Class":2
         }, 
         "other":{
-            "Amount":-1,
+            "TimesRewarded":1,
+            "DatesRewarded":[],
+            "AmountRewarded":-1,
             "Time":"yearly"
         }
     },
@@ -117,7 +131,9 @@
             "Class":1
         }, 
         "other":{
-            "Amount":-1,
+            "TimesRewarded":1,
+            "DatesRewarded":[],
+            "AmountRewarded":-1,
             "Time":"yearly"
         }
     },
@@ -125,13 +141,48 @@
         "_comment":"Should be auto rewarded at the end of year",
         "awarded":false,
         "rewarder":"INSTRUCTOR",
-        "Range":"Class",
+        "Range":"Unit",
         "requirements":{
             "Highest":[],
             "Trouble":false
         },
         "other":{
-            "Amount":1,
+            "TimesRewarded":1,
+            "DatesRewarded":[],
+            "AmountRewarded":-2,
+            "Time":"yearly"
+        }
+    },
+    "Exemplary Personal Appearance":{
+        "_comment":"Should be auto rewarded at the end of year",
+        "awarded":false,
+        "rewarder":"INSTRUCTOR",
+        "Range":"Unit",
+        "requirements":{
+            "Highest":[],
+            "Trouble":false
+        },
+        "other":{
+            "TimesRewarded":2,
+            "DatesRewarded":["iso 1806 or whatever it was called time"],
+            "AmountRewarded":-2,
+            "Time":"yearly"
+        }
+    },
+    "Participation":{
+        "_comment":"Should be auto rewarded at the end of year",
+        "awarded":false,
+        "rewarder":"INSTRUCTOR",
+        "Range":"Unit",
+        "requirements":{
+            "Highest":[],
+            "Trouble":false,
+            "Events":3
+        },
+        "other":{
+            "TimesRewarded":2,
+            "DatesRewarded":["iso 1806 or whatever it was called time"],
+            "AmountRewarded":-2,
             "Time":"yearly"
         }
     }

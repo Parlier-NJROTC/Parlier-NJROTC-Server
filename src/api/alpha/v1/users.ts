@@ -17,7 +17,7 @@ router.get("/",(req,res)=>{
     res.status(200).send(
 `
 ------
-/users paths
+/us{ Router, json ,type Request, type Response, type NextFunction } ers paths
 ------
 POST /users/login - login the user, returns true or false.
 POST /users/signup - temporary path to create users, will be deleted later.
@@ -207,5 +207,5 @@ function ValidateLogin(req:Request,res:Response,next:NextFunction){
 
 export default router
 
-export { User, type UserSchema }
+export { User, type UserSchema, Login, type LoginSchema }
 
