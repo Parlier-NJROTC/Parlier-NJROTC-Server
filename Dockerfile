@@ -1,4 +1,4 @@
 FROM oven/bun
+COPY . .
 RUN bun install
-COPY .
 CMD ["bun","run","start"]
