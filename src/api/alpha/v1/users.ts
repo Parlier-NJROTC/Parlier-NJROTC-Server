@@ -1,34 +1,7 @@
-import { Router, json ,type Request, type Response, type NextFunction } from "express";
-import cookieParser from "cookie-parser";
-import session from "express-session";
-
-const router = Router()
-router.use(json())
-router.use(cookieParser("ChangeBeforePushingToDevelopment"))
-router.use(session({
-    secret:"ChangeBeforePushingToDevelopment",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false, maxAge:9999*99 }
-}))
-
-
-router.get("/",(req,res)=>{
-    res.status(200).send(
-`
-------
-/us{ Router, json ,type Request, type Response, type NextFunction } ers paths
-------
-POST /users/login - login the user, returns true or false.
-POST /users/signup - temporary path to create users, will be deleted later.
-
-`
-)
-})
-
 import mongoose, { SchemaTypes } from "mongoose";
 const Schema = mongoose.Schema;
 
+// moved all auth stuff to auth.ts, changed it all to jwt
 
 /*
 All user schemas defined here
@@ -44,7 +17,7 @@ interface UserSchema{
     rank:string,
     class:number,
     leadership:Boolean,
-    perms:string, // possible values: CO, XO, SEL, OPS, SUPPLY, ADMIN, FUN, IT, or INSTRUCTOR
+    perms:string, // possible values: CADET, CO, XO, SEL, OPS, SUPPLY, ADMIN, FUN, IT, or INSTRUCTOR
     ribbons:[string]
 }
 // They have to be capital when defining a schema, I don't make the rules
@@ -54,7 +27,7 @@ const UserSchema = new Schema({
     rank:{ type:String, default:"Seaman Recurit"},
     class:Number,
     leadership:Boolean,
-    perms:{ type:String, default:"CADET"}, // possible values: CO, XO, SEL, OPS, SUPPLY, ADMIN, FUN, IT, or INSTRUCTOR
+    perms:{ type:String, default:"CADET"}, // possible values:CADET, CO, XO, SEL, OPS, SUPPLY, ADMIN, FUN, IT, or INSTRUCTOR
     ribbons:[String]
 })
 const User = mongoose.model("User",UserSchema,"Users")
@@ -69,143 +42,6 @@ const LoginSchema = new Schema({
     userId:String
 })
 const Login = mongoose.model("Login",LoginSchema,"Logins")
-
-router.post("/testlogin",async (req,res)=>{
-    //@ts-ignore
-    req.session.isAuthed = true
-    //@ts-ignore
-    req.session.betterStayAuthed = "yee"
-    res.status(200).send("created session")
-})
-
-router.get("/testhome",(req,res)=>{
-    //@ts-ignore
-    if(req.session.isAuthed){
-        res.status(200).send("ok what")
-    }else{
-        res.status(400).send("o;irshboi;strbhvo;isrb")
-
-    }
-    //@ts-ignore
-    //req.session.betterStayAuthed = "yee"
-})
-
-
-
-router.post("/login",async (req,res)=>{
-    console.log("recived login request")
-    let data:LoginSchema = req.body
-    console.log(data)
-    console.log(data.username)
-    console.log("login request from"+req.sessionID)
-    let login = await Login.findOne({username:data.username})
-    if(!login){
-        console.log("failed, no user found")
-        res.status(200).json({
-            success:false,
-            message:"No Username Found"
-        });
-        return;
-    }
-    if(login.password === data.password ){
-        //@ts-ignore
-        req.session.isAuthed = true
-        //@ts-ignore
-        req.session.userId = login.userId;
-        //req.session.betterStayAuthed = "yee"
-        console.log("success")
-        res.status(200).json({
-            success:true,
-            message:"Authorized"
-        });
-        // why do sessions work now
-        //console.log("nothing explained")
-        return
-    }
-    console.log("failed, wrong password")
-    res.status(401).json({
-        success:false,
-        message:"Incorrect Password"
-    });
-    return
-})
-router.get("/testing",(req,res)=>{
-    res.status(200).send("hello")
-})
-
-// Temporary sign up path for testing, will not make it to the release
-router.post("/signup",ValidateLogin,async (req,res)=>{
-    let data:LoginSchema = req.body
-    console.log(data)
-    let userdata:UserSchema = req.body.userData
-    if(await Login.findOne({username:data.username})){
-        res.status(409).json(
-            {error:"User Already Exists"}
-        )
-        return
-    }
-    if(!userdata){
-        userdata = {
-            primaryLastName:"",
-            rank:"Seaman Recruit",
-            class:0,
-            leadership:false,
-            perms:"cadet",
-            ribbons:[""],
-            name:[data.username]
-        }
-    }
-    if(!userdata.primaryLastName && userdata.primaryLastName.trim()){
-        // TYPESCRIPT CAN GO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA \/ The error line ends here
-        // I fixed it now
-        userdata.primaryLastName = userdata.name[userdata.name.length-1]
-    }
-
-    /* This is just incase someone tries to be funni and
-    sends in perms:"IT" to gain full access. Don't allow funni or
-    else it gets ugli
-    */
-    let user = new User({
-        name:userdata.name,
-        primaryLastName: String(userdata.primaryLastName),
-        perms:"CADET", // cuz if we jsut passed userdata as the pure variable, someone could just make a admin user
-        ribbons:[]
-    })
-
-    user.save()
-    let login = new Login(
-        {
-            username:data.username,
-            password:data.password,
-            userId:user._id
-        }
-    )
-    login.save()
-
-    res.status(201).send("User Created")
-})
-
-function ValidateLogin(req:Request,res:Response,next:NextFunction){
-    let login:LoginSchema = req.body
-    console.log(req.method)
-    console.log(login)
-    if(!login.username || login.username.trim() == ""){
-        res.status(400).send("No username specified")
-        return
-    }
-    if(!login.password || login.password.trim() == ""){
-        res.status(400).send("No password specified")
-        return
-    }
-    if(login.username.toLowerCase() == "coffee"){
-        res.status(418).send("Coffee can't be brewed in a teapot")
-        return
-    }
-    next()
-}
-
-
-export default router
 
 export { User, type UserSchema, Login, type LoginSchema }
 
