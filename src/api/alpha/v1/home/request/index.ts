@@ -6,8 +6,6 @@ import mongoose, { now } from "mongoose";
 //import ribbon types
 import ribbonsList from "./ribbons.json"
 
-
-console.log(ribbonsList)
 const Schema = mongoose.Schema;
 const router = express.Router()
 
