@@ -5,7 +5,7 @@ import { Login, type LoginSchema } from "./users";
 import { password } from "bun";
 
 const Router = express.Router()
-const SECRET_KEY = "Emergenecy"
+const SECRET_KEY = process.env.JWT_SECRET_KEY!
 
 
 Router.post("/login",async (req,res)=>{

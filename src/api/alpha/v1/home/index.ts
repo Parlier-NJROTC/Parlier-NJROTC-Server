@@ -20,7 +20,7 @@ import RequestRouter from './request';
 
 
 const router = express.Router()
-const SECRET_KEY = "Emergenecy"
+const SECRET_KEY = process.env.JWT_SECRET_KEY!
 
 router.use(isAuthed)
 
