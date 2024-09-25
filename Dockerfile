@@ -1,3 +1,4 @@
 FROM oven/bun
 RUN bun install
-CMD ["bun", "index.ts"]
+COPY .
+CMD ["bun","run","start"]
