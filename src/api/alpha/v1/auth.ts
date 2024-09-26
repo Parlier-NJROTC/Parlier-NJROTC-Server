@@ -71,7 +71,13 @@ Router.post("/signup",async (req,res)=>{
         }
     }
     // I really should read a book on software engineering because this is redneck enginnering at its worstly finest doodooooo
-    if(userdata.class || typeof userdata.class == typeof 1){
+    let is_valid_class_number = false
+    for(let i=1;i<4;i++){
+        if(userdata.class==i){
+            is_valid_class_number=true
+        }
+    }
+    if(typeof userdata.class != typeof 1 && !is_valid_class_number){
         res.status(400).json({
             success:false,
             message:"invalid user class number"
