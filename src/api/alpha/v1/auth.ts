@@ -51,7 +51,7 @@ Router.post("/login",async (req,res)=>{
 Router.post("/signup",async (req,res)=>{
     let data:LoginSchema = req.body
     console.log(data)
-    let userdata:UserSchema = req.body.userData
+    let userdata:UserSchema = req.body.userdata
     if(await Login.findOne({username:data.username})){
         res.status(409).json({
             success:false,
@@ -70,6 +70,14 @@ Router.post("/signup",async (req,res)=>{
             name:[data.username]
         }
     }
+    // I really should read a book on software engineering because this is redneck enginnering at its worstly finest doodooooo
+    if(!userdata.class || typeof userdata.class == typeof 1){
+        res.status(400).json({
+            success:false,
+            message:"invalid user class number"
+        })
+        return
+    }
     if(!userdata.primaryLastName && userdata.primaryLastName.trim() != ""){
         // TYPESCRIPT CAN GO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA \/ The error line ends here
         // I fixed it now
@@ -83,6 +91,7 @@ Router.post("/signup",async (req,res)=>{
     let user = new User({
         name:userdata.name,
         primaryLastName: String(userdata.primaryLastName),
+        class:userdata.class || 1,
         perms:"CADET", // cuz if we jsut passed userdata as the pure variable, someone could just make a admin user
         ribbons:[""]
     })
