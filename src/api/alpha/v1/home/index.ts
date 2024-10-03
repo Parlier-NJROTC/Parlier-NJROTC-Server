@@ -25,7 +25,7 @@ const SECRET_KEY = process.env.JWT_SECRET_KEY!
 router.use(isAuthed)
 
 //import routers
-router.use(RequestRouter)
+router.use("/request",RequestRouter)
 
 /* Request Info */
 router.get("/info",async (req,res)=>{
@@ -45,10 +45,6 @@ router.get("/info/:usrValue", async (req,res)=>{
     res.status(200).send(userdata)
     */
 });
-
-/* Request stuff to be added */
-
-
 
 
 
