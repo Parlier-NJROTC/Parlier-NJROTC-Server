@@ -30,7 +30,7 @@ interface RibbonRequestSchema{
     date_viewed:string|undefined,
     cadet_comment:string,
     admin_comment:string,
-    granted:boolean|undefined, 
+    granted:boolean|undefined,
 }
 // ribbons
 const RibbonRequestSchema = new Schema({
@@ -55,7 +55,7 @@ interface IncommingRibbonRequest{
 function Request_Ribbons(Request_Array:Array<String>){
     for(let i=0;i<Request_Array.length;i++){
         if(!ribbonsList[Request_Array[i] as keyof object]){
-           return 1;
+            return 1;
         }
         let request = new RequestRibbon({
             name:Request_Array[i]
