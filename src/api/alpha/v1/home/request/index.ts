@@ -17,6 +17,8 @@ router.post("/",(req,res)=>{
             res.status(400).send("Wrong whoomp whoomp")
             return
         }
+        res.status(200).send("good ribbon request")
+        return
     }
     res.status(200).send("very gud")
 
@@ -35,6 +37,9 @@ interface RibbonRequestSchema{
 // ribbons
 const RibbonRequestSchema = new Schema({
     name:String,
+    //cadet info
+    cadet:String,
+    cadet_ID:String,
     //dates viwed
     date_requested:{ type:Date, default:new Date().toISOString()},
     viewed_byAdmin:{ type:Boolean, default:false},
@@ -54,11 +59,14 @@ interface IncommingRibbonRequest{
 
 function Request_Ribbons(Request_Array:Array<String>){
     for(let i=0;i<Request_Array.length;i++){
-        if(!ribbonsList[Request_Array[i] as keyof object]){
+        if(ribbonsList[Request_Array[i] as keyof object]){
+            console.log("valid ribbon: "+Request_Array[i])
+        }else{
+            console.log("invalid ribbon: "+Request_Array[i])
             return 1;
         }
         let request = new RequestRibbon({
-            name:Request_Array[i]
+            name:Request_Array[i],
         })
         request.save()
     }

@@ -2,7 +2,7 @@
 import express, { type Request, type Response, type NextFunction } from 'express';
 import session, { type Session } from "express-session";
 import {User} from "../../users"
-import {RibbonRequest} from "."
+//import {RibbonRequest} from "."
 
 
 const router = express.Router()
@@ -34,10 +34,10 @@ router.get("/requests/ribbons/", async (req,res)=>{
 
     const startTime = new Date(start_time as string).toISOString();
     const endTime = new Date(end_time as string).toISOString();
-    const ribbons = await RibbonRequest.find({
-        date_requested: { $gte: new Date(startTime), $lte: new Date(endTime) }
-    }).sort({ createdAt: -1 });
-    console.log(ribbons)
+    //const ribbons = await RibbonRequest.find({
+    //    date_requested: { $gte: new Date(startTime), $lte: new Date(endTime) }
+    //}).sort({ createdAt: -1 });
+    //console.log(ribbons)
 })
 
 async function checkIfAdmin(req:Request,res:Response,next:NextFunction){

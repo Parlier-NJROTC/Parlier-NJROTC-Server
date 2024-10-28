@@ -26,5 +26,12 @@
     "Recruiting":{},
     "Leadership Training":{},
     "Sea Cruise":{},
-    "Community Emergency Response Training (C.E.R.T.)":{}
+    "(C.E.R.T.)":{
+        "full_name":"Community Emergency Response Training\n(C.E.R.T.)",
+        "description":" Testing description",
+        "requirements":" place em here",
+        "technical_Req":{
+
+        }
+    }
 }

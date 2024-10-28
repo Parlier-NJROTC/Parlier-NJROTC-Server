@@ -46,7 +46,7 @@ class EmailBot:
         self.full_title = f"{self.rank} {self.user_last_name}"
         self.current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.receipt_html = self.generate_receipt_html()
-        self.attachments = [] 
+        self.attachments = []
         #I hate this Send me Help, Why Can't we Just Use Gmail on the PreMade Slopp that companies made
 
     def setup_smtp(self):
