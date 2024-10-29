@@ -10,6 +10,7 @@ from colorama import init, Fore, Style
 
 # is me joes bozo le quintiallion
 import sys
+import json
 
 #you NEED PYTHON AND INSTALL THIS FRIST BEFORE RUNNING python3 Gmail.py
 
@@ -43,7 +44,7 @@ class EmailBot:
         self.recipients = ["18000644@parlierusd.org", recipientEmail] #change the User to User's email or something idk "18000644@parlierusd.org"
         self.subject = "This Is Your Test Ribbon Receipt"
         self.body_html2 = "<html>This was Sent by A <strong>Bot and this is a Test</strong></html>"
-        self.selected_items = sys.argv[3] #["Distinguished Cadet", "Aptitude", "Exemplary Conduct", "Exemplary Personal Appearance", "Marksmanship Team", "(C.E.R.T.)"] #Temp
+        self.selected_items = json.loads(sys.argv[3]) #["Distinguished Cadet", "Aptitude", "Exemplary Conduct", "Exemplary Personal Appearance", "Marksmanship Team", "(C.E.R.T.)"] #Temp
         self.user_last_name = sys.argv[1] # modify
         self.rank = sys.argv[2] # modify
         self.full_title = f"{self.rank} {self.user_last_name}"

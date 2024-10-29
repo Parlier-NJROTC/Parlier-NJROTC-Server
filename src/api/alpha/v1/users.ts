@@ -1,4 +1,5 @@
 import mongoose, { SchemaTypes } from "mongoose";
+import { spawn } from "bun";
 const Schema = mongoose.Schema;
 
 // moved all auth stuff to auth.ts, changed it all to jwt
