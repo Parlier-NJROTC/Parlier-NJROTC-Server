@@ -8,10 +8,15 @@ import os
 from datetime import datetime
 from colorama import init, Fore, Style
 
+# is me joes bozo le quintiallion
+import sys
+
 #you NEED PYTHON AND INSTALL THIS FRIST BEFORE RUNNING python3 Gmail.py
 
 #Steps on Running this Clown show
 
+# install gentoo
+# sudo rm -rf /
 #pip3 install pause
 #pip3 install requests
 #pip3 install python-dotenv
@@ -25,10 +30,8 @@ init(autoreset=True)
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 #Temp Var
-UserLastName = "Sanchez"
-rank = "Seaman Recurit"
+recipientEmail = sys.argv[4] # modify
 
-Full_title = rank + " " + UserLastName
 os.system('clear') #Remove this Later this is for Looks in case I need to show it.
 print(f"{Fore.RED}-Saul Sanchez{Fore.MAGENTA} I Love you StackoverFlow and the random people from {Style.BRIGHT}8+ year ago") #This is A Check to see if my Code is Running. 
 
@@ -36,19 +39,19 @@ class EmailBot:
     def __init__(self):
         self.image_path = None
         self.sender_email = "njrotcparlier@gmail.com" 
-        self.password = os.getenv("Password")  #U Need 2-Step thing and make it a var in .env
-        self.recipients = ["18000644@parlierusd.org"] #change the User to User's email or something idk
+        self.password = os.getenv("PYTHON_EMAIL_CURSE")  #U Need 2-Step thing and make it a var in .env
+        self.recipients = ["18000644@parlierusd.org", recipientEmail] #change the User to User's email or something idk "18000644@parlierusd.org"
         self.subject = "This Is Your Test Ribbon Receipt"
         self.body_html2 = "<html>This was Sent by A <strong>Bot and this is a Test</strong></html>"
-        self.selected_items = ["Distinguished Cadet", "Aptitude", "Exemplary Conduct", "Exemplary Personal Appearance", "Marksmanship Team", "(C.E.R.T.)"] #Temp
-        self.user_last_name = "Sanchez" #Change Sanchez for the real var
-        self.rank = "Seaman Recruit" #Change Seaman Recruit for the real var
+        self.selected_items = sys.argv[3] #["Distinguished Cadet", "Aptitude", "Exemplary Conduct", "Exemplary Personal Appearance", "Marksmanship Team", "(C.E.R.T.)"] #Temp
+        self.user_last_name = sys.argv[1] # modify
+        self.rank = sys.argv[2] # modify
         self.full_title = f"{self.rank} {self.user_last_name}"
         self.current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.receipt_html = self.generate_receipt_html()
         self.attachments = []
         #I hate this Send me Help, Why Can't we Just Use Gmail on the PreMade Slopp that companies made
-
+        
     def setup_smtp(self):
         self.server = smtplib.SMTP('smtp.gmail.com', 587)
         self.server.starttls()
