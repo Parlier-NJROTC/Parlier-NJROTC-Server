@@ -1,5 +1,4 @@
 import mongoose, { SchemaTypes } from "mongoose";
-import { spawn } from "bun";
 const Schema = mongoose.Schema;
 
 // moved all auth stuff to auth.ts, changed it all to jwt
@@ -14,6 +13,7 @@ All user schemas defined here
 // When defining a Schema , ; and "" (nothing) are valid
 interface UserSchema{
     name:[string],
+    email:string,
     primaryLastName:string,
     rank:string,
     class:number,
@@ -25,6 +25,7 @@ interface UserSchema{
 const UserSchema = new Schema({
     name:[String],
     primaryLastName:String,
+    email:String,
     rank:{ type:String, default:"Seaman Recurit"},
     class:Number,
     leadership:Boolean,

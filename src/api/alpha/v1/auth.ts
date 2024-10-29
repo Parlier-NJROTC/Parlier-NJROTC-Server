@@ -62,6 +62,7 @@ Router.post("/signup",async (req,res)=>{
     if(!userdata){
         userdata = {
             primaryLastName:"",
+            email:"example@example.com",
             rank:"Seaman Recruit",
             class:0,
             leadership:false,
