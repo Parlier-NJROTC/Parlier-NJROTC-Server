@@ -17,6 +17,7 @@ const router = express.Router()
 router.post("/",async (req,res)=>{
     const User_ID = req.userId as string;
     console.log("recived something")
+    req.body.ribbons = JSON.parse(req.body.ribbons)
     //res.status(200).send("this is getting annoying")
     if(req.body.ribbons as Array<String>){
         console.log("recieved request")
@@ -68,6 +69,9 @@ interface IncommingRibbonRequest{
 
 async function Request_Ribbons(Request_Array:Array<String>,User_ID:string){
     let userdata = (await User.findById(User_ID).select(`name primaryLastName rank email`))!
+    console.log(Request_Array)
+    console.log("data 1: "+Request_Array[0])
+    console.log("data 2: "+Request_Array[1])
     for(let i=0;i<Request_Array.length;i++){
         if(ribbonsList[Request_Array[i] as keyof object]){
             console.log("valid ribbon: "+Request_Array[i])
@@ -82,13 +86,16 @@ async function Request_Ribbons(Request_Array:Array<String>,User_ID:string){
         request.save()
     }
     console.log("sending request")
-    let command = `python3 ./../../../../../python/Gmail.py ${userdata.primaryLastName} ${userdata.rank} ${JSON.stringify(Request_Array)} ${userdata.email}`
+    let command = `python3|src/python/Gmail.py|${userdata.primaryLastName}|"${userdata.rank}"| '"${JSON.stringify(Request_Array)}"' |${userdata.email}`
     const GmailBot = spawn({
-        cmd:command.split(" "),
+        cmd:command.split("|"),
         stdout:"pipe"
     })
     const text = await readableStreamToText(GmailBot.stdout);
     console.log(text); // "hello\n"
+
+    console.log("command: "+command)
+
     return 0;
 }
 /*
