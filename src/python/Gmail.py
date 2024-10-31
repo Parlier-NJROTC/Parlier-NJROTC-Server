@@ -18,19 +18,12 @@ import json
 
 # install gentoo
 # sudo rm -rf /
-
-##real steps
-# python -m venv ./pyVenvWelded
-# source pyVenvWelded/bin/activate
 #pip3 install pause
 #pip3 install requests
 #pip3 install python-dotenv
 #pip3 install colorama
 #python3 src/api/alpha/v1/Gmail.py
 
-
-# JOSE SPESIFIC ONLY STEPS
-# sudo pacman -S python-pip # bevause I decieded to make my own life dificiult lolo
 
 load_dotenv()
 init(autoreset=True)
@@ -40,8 +33,8 @@ current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 #Temp Var
 recipientEmail = sys.argv[4] # modify
 
-# os.system('clear') #Remove this Later this is for Looks in case I need to show it.
-# print(f"{Fore.RED}-Saul Sanchez{Fore.MAGENTA} I Love you StackoverFlow and the random people from {Style.BRIGHT}8+ year ago") #This is A Check to see if my Code is Running. 
+os.system('clear') #Remove this Later this is for Looks in case I need to show it.
+print(f"{Fore.RED}-Saul Sanchez{Fore.MAGENTA} I Love you StackoverFlow and the random people from {Style.BRIGHT}8+ year ago") #This is A Check to see if my Code is Running. 
 
 class EmailBot:
     def __init__(self):
@@ -51,10 +44,7 @@ class EmailBot:
         self.recipients = ["18000644@parlierusd.org", recipientEmail] #change the User to User's email or something idk "18000644@parlierusd.org"
         self.subject = "This Is Your Test Ribbon Receipt"
         self.body_html2 = "<html>This was Sent by A <strong>Bot and this is a Test</strong></html>"
-        print("data: ",json.loads(sys.argv[3]))
-        self.selected_items = json.loads(sys.argv[3])
-        print(sys.argv[3])
-
+        self.selected_items = json.loads(sys.argv[3]) #["Distinguished Cadet", "Aptitude", "Exemplary Conduct", "Exemplary Personal Appearance", "Marksmanship Team", "(C.E.R.T.)"] #Temp
         self.user_last_name = sys.argv[1] # modify
         self.rank = sys.argv[2] # modify
         self.full_title = f"{self.rank} {self.user_last_name}"
@@ -62,8 +52,6 @@ class EmailBot:
         self.receipt_html = self.generate_receipt_html()
         self.attachments = []
         #I hate this Send me Help, Why Can't we Just Use Gmail on the PreMade Slopp that companies made
-
-        # print("lastname: "+self.user_last_name+" | rank: "+self.rank+" | Selected Items: "+self.selected_items+" | Email: "+recipientEmail)
         
     def setup_smtp(self):
         self.server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -166,4 +154,3 @@ if __name__ == "__main__":
     email_bot = EmailBot()
     email_bot.image_path = "download (5).jpg" #Change the Image 
     email_bot.send_email()
-    sys.stdout.flush()

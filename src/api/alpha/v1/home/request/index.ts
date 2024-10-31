@@ -86,7 +86,7 @@ async function Request_Ribbons(Request_Array:Array<String>,User_ID:string){
         request.save()
     }
     console.log("sending request")
-    let command = `python3|src/python/Gmail.py|${userdata.primaryLastName}|"${userdata.rank}"| ${JSON.stringify(Request_Array)} |${userdata.email}`
+    let command = `python3|src/python/Gmail.py|${userdata.primaryLastName}|${userdata.rank}| ${JSON.stringify(Request_Array)} |${userdata.email}`
     const GmailBot = spawn({
         cmd:command.split("|"),
         stdout:"pipe"
