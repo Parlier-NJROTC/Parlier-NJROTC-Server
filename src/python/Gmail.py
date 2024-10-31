@@ -18,12 +18,19 @@ import json
 
 # install gentoo
 # sudo rm -rf /
+
+##real steps
+# python -m venv ./pyVenvWelded
+# source pyVenvWelded/bin/activate
 #pip3 install pause
 #pip3 install requests
 #pip3 install python-dotenv
 #pip3 install colorama
 #python3 src/api/alpha/v1/Gmail.py
 
+
+# JOSE SPESIFIC ONLY STEPS
+# sudo pacman -S python-pip # bevause I decieded to make my own life dificiult lolo
 
 load_dotenv()
 init(autoreset=True)
@@ -44,8 +51,8 @@ class EmailBot:
         self.recipients = ["18000644@parlierusd.org", recipientEmail] #change the User to User's email or something idk "18000644@parlierusd.org"
         self.subject = "This Is Your Test Ribbon Receipt"
         self.body_html2 = "<html>This was Sent by A <strong>Bot and this is a Test</strong></html>"
-        print(json.loads(sys.argv[3]))
-        self.selected_items = sys.argv[3]
+        print("data: ",json.loads(sys.argv[3]))
+        self.selected_items = json.loads(sys.argv[3])
         print(sys.argv[3])
 
         self.user_last_name = sys.argv[1] # modify
