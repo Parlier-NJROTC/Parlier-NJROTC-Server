@@ -17,7 +17,7 @@ import json
 #Steps on Running this Clown show
 
 # install gentoo
-# sudo rm -rf /
+
 #pip3 install pause
 #pip3 install requests
 #pip3 install python-dotenv
@@ -33,7 +33,7 @@ current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 #Temp Var
 recipientEmail = sys.argv[4] # modify
 
-os.system('clear') #Remove this Later this is for Looks in case I need to show it.
+#os.system('clear') #Remove this Later this is for Looks in case I need to show it.
 print(f"{Fore.RED}-Saul Sanchez{Fore.MAGENTA} I Love you StackoverFlow and the random people from {Style.BRIGHT}8+ year ago") #This is A Check to see if my Code is Running. 
 
 class EmailBot:

@@ -18,7 +18,7 @@ Router.post("/login",async (req,res)=>{
         console.log("failed, no user found")
         res.status(404).json({
             success:false,
-            message:"No Username Found",
+            message:"Incorrect Password Or Username",
             token:""
         });
         return
@@ -28,7 +28,7 @@ Router.post("/login",async (req,res)=>{
         console.log("failed, wrong password")
         res.status(401).json({
             success:false,
-            message:"Incorrect Password",
+            message:"Incorrect Password Or Username",
             token:""
         });
         return
@@ -48,7 +48,7 @@ Router.post("/login",async (req,res)=>{
 })
 
 // Temporary path to allow people to sign up, will be moved later to admin path
-Router.post("/signup",async (req,res)=>{
+Router.post("/SignUp",async (req,res)=>{
     let data:LoginSchema = req.body
     console.log(data)
     let userdata:UserSchema = req.body.userdata
