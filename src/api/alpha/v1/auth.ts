@@ -48,7 +48,7 @@ Router.post("/login",async (req,res)=>{
 })
 
 // Temporary path to allow people to sign up, will be moved later to admin path
-Router.post("/SignUp",async (req,res)=>{
+Router.post("/signup",async (req,res)=>{
     let data:LoginSchema = req.body
     console.log(data)
     let userdata:UserSchema = req.body.userdata
