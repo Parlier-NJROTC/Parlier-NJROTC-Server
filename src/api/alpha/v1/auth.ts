@@ -1,135 +1,142 @@
 import express, { type Request, type Response, type NextFunction } from "express";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
 import { Login, type LoginSchema, User, type UserSchema } from "./users";
 
-const Router = express.Router()
-const SECRET_KEY = process.env.JWT_SECRET_KEY!
+const Router = express.Router();
+const SECRET_KEY = process.env.JWT_SECRET_KEY!;
 
-Router.use(ValidateLogin)
+Router.use(ValidateLogin);
 
-Router.post("/login",async (req,res)=>{
-    console.log("recived login request"+req.body)
+Router.post("/login", async (req: Request, res: Response) => {
+    console.log("received login request" + req.body);
 
-    let data:LoginSchema = req.body
-    let login = await Login.findOne({username:data.username})
+    let data: LoginSchema = req.body;
+    let login = await Login.findOne({ username: data.username });
 
-    if(!login){
-        console.log("failed, no user found")
+    if (!login) {
+        console.log("failed, no user found");
         res.status(404).json({
-            success:false,
-            message:"Incorrect Password Or Username",
-            token:""
+            success: false,
+            message: "Incorrect Password Or Username",
+            token: ""
         });
-        return
+        return;
     }
 
-    if(login.password != data.password ){
-        console.log("failed, wrong password")
+    if (login.password !== data.password) {
+        console.log("failed, wrong password");
         res.status(401).json({
-            success:false,
-            message:"Incorrect Password Or Username",
-            token:""
+            success: false,
+            message: "Incorrect Password Or Username",
+            token: ""
         });
-        return
+        return;
     }
 
     const Token = jwt.sign(
-        {username:data.username,id:login.userId},
+        { username: data.username, id: login.userId },
         SECRET_KEY,
-        {expiresIn: "1h"}
-    )
+        { expiresIn: "1h" }
+    );
     res.status(200).json({
-        success:true,
-        message:"Successfully Logged In",
-        token:Token
-    })
-    return
-})
+        success: true,
+        message: "Successfully Logged In",
+        token: Token
+    });
+    return;
+});
 
-// Temporary path to allow people to sign up, will be moved later to admin path
-Router.post("/signup",async (req,res)=>{
-    let data:LoginSchema = req.body
-    console.log(data)
-    let userdata:UserSchema = req.body.userdata
-    if(await Login.findOne({username:data.username})){
+Router.post("/signup", async (req: Request, res: Response) => {
+    let data: LoginSchema = req.body;
+    console.log(data);
+    let userdata: UserSchema = req.body.userdata;
+
+    if (await Login.findOne({ username: data.username })) {
         res.status(409).json({
-            success:false,
-            message:"Username Taken"
-        })
-        return
+            success: false,
+            message: "Username Taken"
+        });
+        return;
     }
-    if(!userdata){
+
+    if (!userdata) {
         userdata = {
-            primaryLastName:"",
-            email:"example@example.com",
-            rank:"Seaman Recruit",
-            class:0,
-            leadership:false,
-            perms:"CADET",
-            ribbons:[""],
-            name:[data.username]
-        }
+            primaryLastName: "",
+            email: "example@example.com",
+            rank: "Seaman Recruit",
+            class: 0,
+            leadership: false,
+            perms: "CADET",
+            ribbons: [""],
+            name: [data.username]
+        };
     }
-    // I really should read a book on software engineering because this is redneck enginnering at its worstly finest doodooooo
-    if(userdata.class != 1 && userdata.class != 2 && userdata.class != 3 && userdata.class != 4){
+
+    if (userdata.class !== 1 && userdata.class !== 2 && userdata.class !== 3 && userdata.class !== 4) {
         res.status(400).json({
-            success:false,
-            message:"invalid user class number"
-        })
-        return
-    }
-    if(!userdata.primaryLastName && userdata.primaryLastName.trim() != ""){
-        // TYPESCRIPT CAN GO AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA \/ The error line ends here
-        // I fixed it now
-        userdata.primaryLastName = userdata.name[userdata.name.length-1]
+            success: false,
+            message: "invalid user class number"
+        });
+        return;
     }
 
-    /* This is just incase someone tries to be funni and
-    sends in perms:"IT" to gain full access. Don't allow funni or
-    else it gets ugli
-    */
+    if (!userdata.primaryLastName || userdata.primaryLastName.trim() === "") {
+        userdata.primaryLastName = userdata.name[userdata.name.length - 1];
+    }
+
     let user = new User({
-        name:userdata.name,
+        name: userdata.name,
         primaryLastName: String(userdata.primaryLastName),
-        class:userdata.class || 1,
-        perms:"CADET", // cuz if we jsut passed userdata as the pure variable, someone could just make a admin user
-        ribbons:[""]
-    })
+        class: userdata.class || 1,
+        perms: "CADET",
+        ribbons: [""]
+    });
 
-    user.save()
-    let login = new Login(
-        {
-            username:data.username,
-            password:data.password,
-            userId:user._id
-        }
-    )
-    login.save()
+    await user.save();
 
-    res.status(201).send("User Created")
-})
+    let login = new Login({
+        username: data.username,
+        password: data.password,
+        userId: user._id
+    });
 
-function ValidateLogin(req:Request,res:Response,next:NextFunction){
-    let login:LoginSchema = req.body
-    console.log(req.method)
-    console.log(login)
-    if(!login.username || login.username.trim() == ""){
-        res.status(400).send("No username specified")
-        return
+    await login.save();
+
+    const Token = jwt.sign(
+        { username: data.username, id: user._id },
+        SECRET_KEY,
+        { expiresIn: "1h" }
+    );
+
+    res.status(201).json({
+        success: true,
+        message: "User Created Successfully",
+        token: Token
+    });
+});
+
+function ValidateLogin(req: Request, res: Response, next: NextFunction) {
+    let login: LoginSchema = req.body;
+    console.log(req.method);
+    console.log(login);
+
+    if (!login.username || login.username.trim() === "") {
+        res.status(400).send("No username specified");
+        return;
     }
-    if(!login.password || login.password.trim() == ""){
-        res.status(400).send("No password specified")
-        return
+
+    if (!login.password || login.password.trim() === "") {
+        res.status(400).send("No password specified");
+        return;
     }
-    if(login.username.toLowerCase() == "coffee"){
-        res.status(418).send("Coffee can't be brewed in a teapot")
-        return
+
+    if (login.username.toLowerCase() === "coffee") {
+        res.status(418).send("Coffee can't be brewed in a teapot");
+        return;
     }
-    next()
+
+    next();
 }
 
-
-
-
-export default Router
+export default Router;
