@@ -76,44 +76,51 @@ Router.post("/signup", async (req: Request, res: Response) => {
     if (userdata.class !== 1 && userdata.class !== 2 && userdata.class !== 3 && userdata.class !== 4) {
         res.status(400).json({
             success: false,
-            message: "invalid user class number"
+            message: "Invalid user class number"
         });
         return;
     }
 
-    if (!userdata.primaryLastName || userdata.primaryLastName.trim() === "") {
-        userdata.primaryLastName = userdata.name[userdata.name.length - 1];
-    }
+    const usernameWords = data.username.split(' ');
+    const primaryLastName = usernameWords[usernameWords.length - 1] || '';
 
     let user = new User({
-        name: userdata.name,
-        primaryLastName: String(userdata.primaryLastName),
+        name: [data.username],
+        primaryLastName: primaryLastName,
         class: userdata.class || 1,
         perms: "CADET",
         ribbons: [""]
     });
 
-    await user.save();
+    try {
+        await user.save();
 
-    let login = new Login({
-        username: data.username,
-        password: data.password,
-        userId: user._id
-    });
+        let login = new Login({
+            username: data.username,
+            password: data.password,
+            userId: user._id
+        });
 
-    await login.save();
+        await login.save();
 
-    const Token = jwt.sign(
-        { username: data.username, id: user._id },
-        SECRET_KEY,
-        { expiresIn: "1h" }
-    );
+        const token = jwt.sign(
+            { username: data.username, id: user._id },
+            SECRET_KEY,
+            { expiresIn: "1h" }
+        );
 
-    res.status(201).json({
-        success: true,
-        message: "User Created Successfully",
-        token: Token
-    });
+        res.status(201).json({
+            success: true,
+            message: "User Created Successfully",
+            token: token
+        });
+    } catch (error) {
+        console.error("Error creating user:", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
 });
 
 function ValidateLogin(req: Request, res: Response, next: NextFunction) {
