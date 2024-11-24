@@ -75,14 +75,14 @@ Router.post("/signup", async (req: Request, res: Response) => {
         };
     }
 
-    if (userdata.class !== 1 && userdata.class !== 2 && userdata.class !== 3 && userdata.class !== 4) {
+    if (typeof userdata.class !== 'number' || userdata.class < 1 || userdata.class > 4) {
         res.status(400).json({
             success: false,
             message: "Invalid user class number"
         });
         return;
     }
-
+    
     const emailElement = document.getElementById('email') as HTMLInputElement;
     let email = emailElement ? emailElement.value : null;
 
