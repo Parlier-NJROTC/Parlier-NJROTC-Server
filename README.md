@@ -41,5 +41,3 @@ All your knowledge of NodeJS will transfer here.
 .ts is Typescript aka Javascript with types
 
 ---
-Saul you do gramar thing cuz you do u
-Fixed - Cadet Sanchez

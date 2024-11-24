@@ -1,6 +1,8 @@
 import express, { type Request, type Response, type NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+import { ObjectId } from 'mongodb';
+
 import { Login, type LoginSchema, User, type UserSchema } from "./users";
 
 const Router = express.Router();
@@ -81,15 +83,37 @@ Router.post("/signup", async (req: Request, res: Response) => {
         return;
     }
 
-    const usernameWords = data.username.split(' ');
-    const primaryLastName = usernameWords[usernameWords.length - 1] || '';
+    const emailElement = document.getElementById('email') as HTMLInputElement;
+    let email = emailElement ? emailElement.value : null;
+
+    const classElement = document.getElementById('Year3321') as HTMLInputElement;
+    let classValue = classElement ? String(classElement.value) : null;
+
+    if (!email) {
+        res.status(400).json({
+            success: false,
+            message: "Email is required"
+        });
+        return;
+    }
+
+    if (classValue) {
+        userdata.class = parseInt(classValue);
+    } else {
+        console.warn("Class value not found");
+    }
+
+    const randomObjectId = new ObjectId().toString();
 
     let user = new User({
+        _id: randomObjectId,
         name: [data.username],
-        primaryLastName: primaryLastName,
-        class: userdata.class || 1,
+        primaryLastName: data.username.split(' ').pop() || '',
+        rank: userdata.rank || "Seaman",
         perms: "CADET",
-        ribbons: [""]
+        ribbons: [""],
+        class: userdata.class, 
+        email: email
     });
 
     try {
