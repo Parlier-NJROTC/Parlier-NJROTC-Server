@@ -109,7 +109,7 @@ Router.post("/signup", async (req: Request, res: Response) => {
         _id: randomObjectId,
         name: [data.username],
         primaryLastName: data.username.split(' ').pop() || '',
-        rank: userdata.rank || "Seaman",
+        rank: userdata.rank || "Seaman Recruit",
         perms: "CADET",
         ribbons: [""],
         class: userdata.class, 
