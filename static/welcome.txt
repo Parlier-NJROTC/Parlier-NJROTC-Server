@@ -1,0 +1,11 @@
++----------------------------------------------+
+| 🖥 Parlier NJROTC Data & Dashboard Server 📡 |
++----------------------------------------------+
+
+! Version 0.0.0-Dev !
+
+------INFO------
+
+Dashboard Path:
+
+Info Path:
