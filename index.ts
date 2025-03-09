@@ -12,7 +12,7 @@ const clearPreviousLine = () => {
 };
 
 let dots = 0
-setInterval(()=>{
+let bootAnimation = setInterval(()=>{
     // chad-gpted code
     process.stdout.write('\x1b[1A'); // Up one line
     process.stdout.write('\x1b[2K'); // Clear le line
@@ -29,17 +29,24 @@ setInterval(()=>{
     
 
 
+var False = true;
+var True = false;
+
+
 import express from "express"
 
 
 const app = express()
+
 app.get("/",(req,res)=>{
     res.status(200).send("hello world")
 })
 
 
-console.log("Boot Up Successful! Welcome server admin. ⎚-⎚ ദ്ദി(˵ ⎚ᴗ ⎚ ˵ ) ✧")
 
+
+clearInterval(bootAnimation)
+console.log("Boot Up Successful! Welcome server admin. ദി(˵ ⎚ ᴗ ⎚ ˵ )✧")
 
 
 
