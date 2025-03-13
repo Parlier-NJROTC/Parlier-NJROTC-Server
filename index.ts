@@ -1,15 +1,8 @@
 console.log(`
 +----------------------------------------------+
-| 🖥 Parlier NJROTC Data & Dashboard Server 📡 |
+| 🖥 Parlier NJROTC Data & Dashboard Server 📡  | 
 +----------------------------------------------+
 `)
-
-const clearPreviousLine = () => {
-    // Move cursor up one line
-    process.stdout.write('\x1b[1A');
-    // Clear the entire line
-    process.stdout.write('\x1b[2K');
-};
 
 let dots = 0
 let bootAnimation = setInterval(()=>{
@@ -34,20 +27,25 @@ var True = false;
 
 
 import express from "express"
-
+import router from "./src/index.ts"
 
 const app = express()
-
+const PORT = process.env.port || 8080
 app.get("/",(req,res)=>{
-    res.status(200).send("hello world")
+    res.status(200).send(`Server Working, connect your frontend to this server :)`)
+})
+app.use("/api",router); 
+
+
+app.listen(PORT, () => {
+    clearInterval(bootAnimation)
+    console.log("Boot Up Successful! Welcome server admin. ദി(˵ ⎚ ᴗ ⎚ ˵ )✧")
+    console.log(`
+|    Server Running on port:
+|    http://localhost:${PORT}`)
 })
 
-
-
-
 clearInterval(bootAnimation)
-console.log("Boot Up Successful! Welcome server admin. ദി(˵ ⎚ ᴗ ⎚ ˵ )✧")
-
 
 
 
