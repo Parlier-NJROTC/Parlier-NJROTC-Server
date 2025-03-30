@@ -1,5 +1,4 @@
-console.log(`
-+----------------------------------------------+
+console.log(`+----------------------------------------------+
 | 🖥 Parlier NJROTC Data & Dashboard Server 📡  | 
 +----------------------------------------------+
 `)
@@ -27,6 +26,19 @@ var True = false;
 
 
 import express from "express"
+import mongoose from "mongoose";
+import { utils } from "./src/utils/index.ts";
+
+// Validate Mongoose URI
+if(process.env.MONGO_DB_URI == undefined || process.env.MONGO_DB_URI == null){
+    utils.LogBootError("Unable to connect to MongoDB Server","Server uri/url is empty \nPlease define a valid MONGO_DB_URI in your .env")
+}
+mongoose.connect(process.env.MONGO_DB_URI as string).catch((err)=>{
+    console.log(err)
+    utils.LogBootError("Unable to connect to MongoDB Server","Unknown Error, Read above for details")
+})
+
+
 import router from "./src/index.ts"
 
 const app = express()
@@ -42,7 +54,12 @@ app.listen(PORT, () => {
     console.log("Boot Up Successful! Welcome server admin. ദി(˵ ⎚ ᴗ ⎚ ˵ )✧")
     console.log(`
 |    Server Running on port:
-|    http://localhost:${PORT}`)
+|    http://localhost:${PORT}
+
+API: http://localhost:${PORT}/api/
+Public Data: http://localhost:${PORT}/api/public
+Notification System: http://localhost:${PORT}/api/notifications
+Dashboard: http://localhost:${PORT}/api/dashboard`)
 })
 
 clearInterval(bootAnimation)
