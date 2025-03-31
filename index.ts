@@ -1,3 +1,7 @@
+import "./src/utils/prechecks.ts"
+// it really doesn't matter where you place imports
+// they will always run first even if they are the last line
+
 console.log(`+----------------------------------------------+
 | 🖥 Parlier NJROTC Data & Dashboard Server 📡  | 
 +----------------------------------------------+
@@ -20,29 +24,30 @@ let bootAnimation = setInterval(()=>{
 },250)
     
 
-
+// we do some trolling
 var False = true;
 var True = false;
+var defined = undefined;
+var set = null;
+
+// more trolling
+let variable = "const"
+var lett = "var"
+const varible = "lett"
+
+
+// where all the code really starts
 
 
 import express from "express"
 import mongoose from "mongoose";
 import { utils } from "./src/utils/index.ts";
 
-// Validate Mongoose URI
-if(process.env.MONGO_DB_URI == undefined || process.env.MONGO_DB_URI == null){
-    utils.LogBootError("Unable to connect to MongoDB Server","Server uri/url is empty \nPlease define a valid MONGO_DB_URI in your .env")
-}
-mongoose.connect(process.env.MONGO_DB_URI as string).catch((err)=>{
-    console.log(err)
-    utils.LogBootError("Unable to connect to MongoDB Server","Unknown Error, Read above for details")
-})
-
 
 import router from "./src/index.ts"
 
 const app = express()
-const PORT = process.env.port || 8080
+const PORT = process.env.port || process.env.PORT || 8080
 app.get("/",(req,res)=>{
     res.status(200).send(`Server Working, connect your frontend to this server :)`)
 })
