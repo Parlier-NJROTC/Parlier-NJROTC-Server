@@ -2,6 +2,7 @@ import express, { type Request, type Response, type NextFunction } from "express
 import jwt from "jsonwebtoken";
 
 import { ObjectId } from 'mongodb';
+import { readableStreamToText, spawn } from "bun";
 
 import { Login, type LoginSchema, User, type UserSchema } from "./users";
 
@@ -51,6 +52,14 @@ Router.post("/login", async (req: Request, res: Response) => {
 
 Router.post("/signup", async (req: Request, res: Response) => {
     // what ever, my code is dog water
+})
+Router.post("/python", async (req: Request, res: Response) => {
+    console.log("sending request")
+    let command = `python3|src/Photos/python.py`
+    const GmailBot = spawn({
+        cmd:command.split("|"),
+        stdout:"pipe"
+    })
 })
 
 function ValidateLogin(req: Request, res: Response, next: NextFunction) {
