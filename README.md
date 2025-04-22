@@ -33,6 +33,31 @@ if an error happens when editing (Mac):
 If you are on Windows, Linux, or another OS (I Don't Know, Use TempleOS If You Are Somehow A Programming God)
  P.S. If You Don't Know What It Is Google it.
 
+## How is it strucuted?
+
+here is the plan:
+
+- any folders under the /src/api/ are routes with the api it self starting at /api
+- normally routes would be defined inside the index.ts of each folder
+  - other files such as users.ts or auth.ts hold different code like data fetching or middleware, not routes themselves
+
+### Examples
+
+/src/api (Folder)                        | /api (Route)
+/src/api/dashboard/auth/ (Folder)        | /api/dashboard/auth/ (Route)
+/src/api/public/ChainOfCommand/ (Folder) | /api/public/ChainOfCommand/ (Route)
+you get the gist
+
+### Exceptions
+
+/ (Folder) | / (Route)
+Any custom routes used for development purposes
+
+## What in the world is the "xyz" folder
+
+it contains examples or default code to use.
+store shenanigans inside it
+
 ## Where do I start?
 
 The index.ts is where the code will start running,
@@ -40,4 +65,6 @@ All your knowledge of NodeJS will transfer here.
 
 .ts is Typescript aka Javascript with types
 
----
+## TODO
+
+migrate to nitro.js after this project is done.

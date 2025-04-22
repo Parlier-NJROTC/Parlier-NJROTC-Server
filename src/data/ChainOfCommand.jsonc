@@ -1,0 +1,79 @@
+{
+    "current":{
+        "ComanderInCheif":{
+            "name":"Donald John Trump",
+            "nickname":"Donald J. Trump",
+            "about":{
+                "text":"After a landslide election victory in 2024, President Donald J. Trump is returning to the White House to build upon his previous successes and use his mandate to reject the extremist policies of the radical left while providing tangible quality of life improvements for the American people.",
+                "from":"U.S. White House",
+                "?url":"https://www.whitehouse.gov/administration/donald-j-trump/",
+                "?remembering":"Big Orange Man, stay safe",
+                "?rememberingFrom":"Cadet Ibarra"
+            },
+            // if this project goes popular ima change this variable to picture
+            "mugshot":"https://upload.wikimedia.org/wikipedia/commons/8/83/TrumpPortrait.jpg",
+            "portrait":"mugshot",
+            "acting":false
+        },
+        "SecretaryOfDefense":{
+            "name":"Peter Brian Hegseth",
+            "nickname":"Honorable Pete Hegseth",
+            "about":{
+                "text":"The Honorable Pete Hegseth is the 29th secretary of defense, sworn in on Jan. 25, 2025. A graduate of Princeton University in 2003, Hegseth was commissioned as an infantry officer in the U.S. Army National Guard. He participated in a number of active-duty deployments during his time in service, including operations in Guantanamo Bay, Iraq and Afghanistan.",
+                "from":"U.S. Department Of Defense",
+                "?url":"https://www.defense.gov/About/Secretary-of-Defense/"
+            },
+            "portrait":"https://upload.wikimedia.org/wikipedia/commons/e/e4/Pete_Hegseth_Official_Portrait_Headshot_%28cropped%29.jpg",
+            "acting":false
+        },
+        "SecretaryOfNavy":{
+            "name":"N/A",
+            "nickname":"N/A",
+            "about":{
+                "text":"N/A",
+                "from":"N/A"
+            },
+            "acting":true
+        },
+        "SpeakerOfTheHouse":{
+            "name":"Mike Johnson",
+            "nickname":"Mike Johnson",
+            "about":{
+                "text":"Speaker Mike Johnson is the 56th Speaker of the U.S. House of Representatives and a Republican member of Congress proudly serving Louisiana’s Fourth District. On October 25, 2023, he was elected unanimously by his House Republican colleagues to serve as the Speaker. After a tenure of less than 6.8 years in the House, Mike was given the honor faster than any person in history except for Speaker John G. Carlisle in 1883, who had previously served for only 6.75 years. He was reelected on January 3, 2025, to continue serving as Speaker of the House for the 119th Congress. As a Member of Congress, he represents the nearly 760,000 residents of 20 parishes in the northwest, northeast, and western regions of his state. Mike was first elected to Congress on December 10, 2016, by the largest margin of victory in his region in more than 50 years and is currently serving in his fifth term in Congress.",
+                "from":"Speaker of House, Website",
+                "?url":"https://www.speaker.gov/meet-mike-johnson/",
+                "?remembering":"An easy way to remeber him is by this rhyme \"Drop the mic Mike Johnson\".",
+                "?rememberingFrom":"Cheif Killian"
+            },
+            //as u can tell, the us government really likes wordpress, or wordpress engine, who knows.
+            "portrait":"https://www.speaker.gov/wp-content/uploads/2024/07/Speaker-mike-johnson-official-photo-scaled.jpg",
+            "acting":false
+        },
+        "CheifOfNavalOperations":{
+            "name":"Lisa Marie Franchetti",
+            "nickname":"Admiral Lisa Franchetti",
+            "about":{
+                "text":"Adm. Lisa Franchetti is a native of Rochester, New York. She is a 1985 graduate of Northwestern University where she was commissioned through the Naval Reserve Officer Training Corps Program. Designated a Surface Warfare Officer in 1989, she has commanded at every level and deployed in every Fleet, with nearly 20 years of operational and at-sea experience.",
+                "from":"U.S. Navy",
+                "?url":"https://www.navy.mil/Leadership/Chief-of-Naval-Operations/Chief-of-Naval-Operations/",
+                "?remembering":"An easy way to remeber him is by this rhyme \"Lisa, bring the Confetti Franchetti\" or just \"Confetti Franchetti\".",
+                "?rememberingFrom":"Cadet Ibarra"
+            },
+            "portrait":"https://media.defense.gov/2024/Mar/08/2003409220/-1/-1/0/240306-D-IF881-4002.JPG",
+            "acting":false
+        }
+
+    },
+    "acting":{
+        "SecretaryOfNavy":{
+            "name":"Terence Emmert",
+            "nickname":"Terence G. Emmert",
+            "about":{
+                "text":"Fun Fact, he doesn't have a wikipeda page. \nWe also couldn't find any info on where the \"G\" came from.",
+                "from":"Cadet Ibarra",
+                "?url":"https://cyborgnetical.github.io/"
+            },
+            "acting":true
+        }
+    }
+}
