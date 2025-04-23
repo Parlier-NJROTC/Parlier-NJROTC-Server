@@ -13,7 +13,7 @@ declare global {
 }
 
 
-import { User, type UserSchema } from '../users';
+import { User } from '../users';
 
 // Routers
 //import RequestRouter from './request';
@@ -24,8 +24,7 @@ const SECRET_KEY = process.env.JWT_SECRET_KEY!
 
 router.use(isAuthed)
 
-//import routers
-//router.use("/request",RequestRouter)
+
 
 /* Request Info */
 router.get("/info",async (req,res)=>{
