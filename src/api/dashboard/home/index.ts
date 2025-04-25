@@ -16,25 +16,33 @@ declare global {
 import { User } from '../users';
 
 // Routers
-//import RequestRouter from './request';
+
+import requestItemsRouter from './request-items';
+import profileRouter from "./profile"
+import infoRouter from "./info"
 
 
-const router = express.Router()
+const Router = express.Router()
 const SECRET_KEY = process.env.JWT_SECRET_KEY!
 
-router.use(isAuthed)
+Router.use(isAuthed)
+Router.use("/request-items",requestItemsRouter)
+Router.use("/profile",profileRouter)
+Router.use("/info",infoRouter)
+
+
 
 
 
 /* Request Info */
-router.get("/info",async (req,res)=>{
+Router.get("/info",async (req,res)=>{
     const User_ID = req.userId
     console.log("User id: "+User_ID)
     let userdata = await User.findById(User_ID).select(`-_id name primaryLastName rank class leadership`)
     res.status(200).send(userdata)
     console.log("data sent")
 })
-router.get("/info/:usrValue", async (req,res)=>{
+Router.get("/info/:usrValue", async (req,res)=>{
     const User_ID = req.userId
     let userdata = await User.findById(User_ID).select(`-_id ${req.params.usrValue}`)
     res.status(200).send(userdata)
@@ -81,4 +89,4 @@ function isAuthed(req:Request,res:Response,next:NextFunction){
     }*/
 }
 
-export default router;
+export default Router;
