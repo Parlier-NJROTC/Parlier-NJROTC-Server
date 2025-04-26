@@ -14,11 +14,8 @@ const Router = express.Router();
 const multerUploads = multer({ dest: '/temp/uploads/' });
 
 Router.post("/", async (req:Request,res:Response)=>{
-    if(req.file){
-        console.log("there be file")
-    }else{
-        console.log("nothin")
-    }
+    console.log(req.file);
+    console.log(req.body);
 
 })
 
