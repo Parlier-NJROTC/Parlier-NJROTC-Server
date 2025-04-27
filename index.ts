@@ -41,12 +41,16 @@ const varible = "lett"
 
 import express from "express"
 import mongoose from "mongoose";
+import cors from "cors"
 import { utils } from "./src/utils/index.ts";
 
 
 import router from "./src/index.ts"
 
 const app = express()
+app.use(cors())
+await mongoose.connect(process.env.MONGO_DB_URI as string)
+
 const PORT = process.env.port || process.env.PORT || 8080
 app.get("/",(req,res)=>{
     res.status(200).send(`Server Working, connect your frontend to this server :)`)
@@ -68,6 +72,8 @@ Dashboard: http://localhost:${PORT}/api/dashboard`)
 })
 
 clearInterval(bootAnimation)
+
+
 
 
 
