@@ -11,7 +11,7 @@ import multer from "multer";
 
 const Router = express.Router();
 
-const multerUploads = multer({ dest: '/temp/uploads/' });
+const multerUploads = multer({ dest: './temp/uploads/' });
 
 Router.post("/", async (req:Request,res:Response)=>{
     console.log(req.file);
