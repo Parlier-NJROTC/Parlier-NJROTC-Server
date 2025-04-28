@@ -11,11 +11,30 @@ import multer from "multer";
 
 const Router = express.Router();
 
-const multerUploads = multer({ dest: './temp/uploads/' });
+const uploads = multer({ dest: './temp/uploads/' });
 
-Router.post("/", async (req:Request,res:Response)=>{
+
+
+
+// @ts-ignore Must do or else gives bs error 
+Router.post("/",uploads.single("banana"),async (req,res)=>{
     console.log(req.file);
+    // why is it undefined?????
+
+    // ok so I sent basic form:
+    /**
+     * Key: Banana | Value: Bornanana | Description: rhyme
+     */
+    // and I got this in the console:
+    /**
+     * [Object: null prototype] {
+     *  banana: "bornanana",
+     * }
+     */
+    // also if u send wrong type of input then the server crashes.
     console.log(req.body);
+
+    res.status(200).send("request processing")
 
 })
 

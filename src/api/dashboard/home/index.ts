@@ -26,12 +26,15 @@ const Router = express.Router()
 const SECRET_KEY = process.env.JWT_SECRET_KEY!
 
 Router.use(isAuthed)
+
 Router.use("/request-items",requestItemsRouter)
 Router.use("/profile",profileRouter)
 Router.use("/info",infoRouter)
 
 
-
+Router.get("/",async (req,res)=>{
+    res.status(200).send("welcome to home!")
+})
 
 
 /* Request Info */
@@ -62,6 +65,7 @@ function isAuthed(req:Request,res:Response,next:NextFunction){
         res.status(401).json({ error: 'No token, login?' });
         return
     }
+    console.log("verifiy")
     const Token = AuthHeader.split(' ')[1]
 
     jwt.verify(Token,SECRET_KEY,(err,decoded)=>{
