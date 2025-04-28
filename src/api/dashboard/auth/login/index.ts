@@ -6,6 +6,8 @@ import { Login, type LoginSchema } from "../../users";
 const Router = express.Router();
 const SECRET_KEY = process.env.JWT_SECRET_KEY!;
 
+
+
 Router.post("/", async (req: Request, res: Response) => {
     console.log("received login request" + req.body);
 
