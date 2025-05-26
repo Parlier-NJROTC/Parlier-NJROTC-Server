@@ -12,6 +12,9 @@ Router.use(express.json());
 Router.use("/auth",authRouter)
 Router.use("/home",homeRouter)
 
+Router.get("/",(req,res)=>{
+    res.send("Welcome to the Dashboard API")
+})
 
 
 

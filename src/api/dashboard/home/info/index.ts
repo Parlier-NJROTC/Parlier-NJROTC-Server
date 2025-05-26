@@ -1,6 +1,6 @@
 import express from "express";
 
-import { User } from '../../users';
+import { User } from '../../../../mongodb/dashboard/users';
 
 
 import usrValueRouter from "./:usrValue"

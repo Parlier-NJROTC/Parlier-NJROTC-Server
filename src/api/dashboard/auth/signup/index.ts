@@ -1,5 +1,5 @@
 import express, { type Request, type Response, type NextFunction } from "express";
-import { Login, User, type LoginSchema, type UserSchema } from "../../users";
+import { Login, User, type LoginSchema, type UserSchema } from "../../../../mongodb/dashboard/users";
 
 
 
@@ -35,7 +35,7 @@ Router.post("/", async (req: Request, res: Response) => {
     console.log(userdata)
     // I really should read a book on software engineering because this is redneck enginnering at its worstly finest doodooooo
     if(userdata.class == 0){
-        message+="\nWarning: User Created with class of 0. This better be for debugging else something has gone wrong"
+        message+="\nWarning: User Created with class of 0. This better be for debugging else something has seriously gone wrong"
     }else if(userdata.class != 1 && userdata.class != 2 && userdata.class != 3 && userdata.class != 4){
         res.status(400).json({
             success:false,

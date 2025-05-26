@@ -1,7 +1,7 @@
 import express, { type Request, type Response, type NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-import { Login, type LoginSchema } from "../../users";
+import { Login, type LoginSchema } from "../../../../mongodb/dashboard/users";
 
 const Router = express.Router();
 const SECRET_KEY = process.env.JWT_SECRET_KEY!;

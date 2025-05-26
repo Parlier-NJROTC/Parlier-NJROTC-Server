@@ -13,7 +13,7 @@ declare global {
 }
 
 
-import { User } from '../users';
+import { User } from '../../../mongodb/dashboard/users';
 
 // Routers
 

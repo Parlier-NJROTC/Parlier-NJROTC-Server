@@ -68,3 +68,4 @@ All your knowledge of NodeJS will transfer here.
 ## TODO
 
 migrate to nitro.js after this project is done.
+explain this werid folder structure

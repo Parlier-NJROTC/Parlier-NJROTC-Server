@@ -1,6 +1,6 @@
 import express, { type Request, type Response, type NextFunction } from "express";
 
-import { type LoginSchema } from "../users";
+import { type LoginSchema } from "../../../mongodb/dashboard/users";
 
 import LoginRouter from "./login"
 import SignUpRouter from "./signup"
@@ -8,12 +8,26 @@ import SignUpRouter from "./signup"
 
 const Router = express.Router();
 
+
+Router.get("/",(req,res)=>{
+    res.send(`Welcome to the auth API!
+Paths Availible:
+/signup
+/login
+    `)
+})
+
 Router.use(ValidateLogin);
 Router.use("/login",LoginRouter)
 Router.use("/signup",SignUpRouter)
 
 
 function ValidateLogin(req: Request, res: Response, next: NextFunction) {
+
+    if(req.method!="POST"){
+        res.send("Wrong type, use POST request")
+        return;
+    }
     let login: LoginSchema = req.body;
     console.log(req.method);
     console.log(login);

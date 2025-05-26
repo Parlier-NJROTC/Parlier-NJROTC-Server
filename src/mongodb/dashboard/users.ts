@@ -1,5 +1,5 @@
-import mongoose, { SchemaTypes } from "mongoose";
-const Schema = mongoose.Schema;
+import DashboardDB from "./database-setup";
+import { Schema } from "mongoose";
 
 // moved all auth stuff to auth.ts, changed it all to jwt
 
@@ -32,7 +32,7 @@ const UserSchema = new Schema({
     perms:{ type:String, default:"CADET"}, // possible values:CADET, CO, XO, SEL, OPS, SUPPLY, ADMIN, FUN, IT, or INSTRUCTOR
     ribbons:[String]
 })
-const User = mongoose.model("User",UserSchema,"Users")
+const User = DashboardDB.model("User",UserSchema,"Users")
 
 interface LoginSchema{
     username:string
@@ -43,7 +43,7 @@ const LoginSchema = new Schema({
     password:String,
     userId:String
 })
-const Login = mongoose.model("Login",LoginSchema,"Logins")
+const Login = DashboardDB.model("Login",LoginSchema,"Logins")
 
 export { User, type UserSchema, Login, type LoginSchema }
 
