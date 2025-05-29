@@ -48,14 +48,33 @@ import { utils } from "./src/utils/index.ts";
 import router from "./src/index.ts"
 
 const app = express()
+
+//testo buggero
+import multer from "multer";
+
+const uploads = multer({
+    limits: {
+        fileSize: 12 * 1024 * 1024 // 12MB limit
+    },
+    dest:"./temp/uploads/"
+} );
+app.get("/testing", uploads.single("avatar") ,(req,res)=>{
+    console.log(req.file)
+    res.status(200).send("we good")
+})
 app.use(cors())
 await mongoose.connect(process.env.MONGO_DB_URI as string)
 
 const PORT = process.env.port || process.env.PORT || 8080
+
+
 app.get("/",(req,res)=>{
     res.status(200).send(`Server Working, connect your frontend to this server :)`)
 })
 app.use("/api",router); 
+
+
+
 
 
 app.listen(PORT, () => {
