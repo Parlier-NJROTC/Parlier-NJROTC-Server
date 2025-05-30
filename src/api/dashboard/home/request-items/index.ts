@@ -26,7 +26,7 @@ const fileFilter = ( file: Express.Multer.File, cb: (error: Error | null, accept
         cb(new Error('Invalid file type'), false);
     }
 };
-const uploads = multer({
+let uploads = multer({
     limits: {
         fileSize: 12 * 1024 * 1024 // 12MB limit
     },
@@ -41,7 +41,7 @@ Router.get("/",(req,res)=>{
 })
 
 // checking multer doscs
-Router.post("/",uploads.single("something"),async (req,res)=>{
+Router.post("/",uploads.single("something"),(req,res)=>{
     
     console.log("aw hell")
     // heck ton of safeguards, the path shouldn't explode the server
