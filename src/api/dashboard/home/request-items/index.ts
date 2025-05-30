@@ -27,7 +27,6 @@ const fileFilter = ( file: Express.Multer.File, cb: (error: Error | null, accept
     }
 };
 const uploads = multer({
-    fileFilter,
     limits: {
         fileSize: 12 * 1024 * 1024 // 12MB limit
     },
@@ -40,8 +39,9 @@ Router.get("/",(req,res)=>{
     res.status(200).send("bozo use the post request")
 
 })
-// @ts-ignore Must do or else gives bs error 
-Router.post("/",uploads.single("uploaded_file"),async (req,res)=>{
+
+// checking multer doscs
+Router.post("/",uploads.single("something"),async (req,res)=>{
     
     console.log("aw hell")
     // heck ton of safeguards, the path shouldn't explode the server
