@@ -92,5 +92,5 @@ function isAuthed(req:Request,res:Response,next:NextFunction){
         next();
     }*/
 }
-
+console.log("testing")
 export default Router;
