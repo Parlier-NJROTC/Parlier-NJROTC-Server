@@ -18,7 +18,8 @@ const RequestSchema = new Schema({
     day_requested: {type: Date, required: true, default: Date.now() },
     day_completed: {type: Date || undefined, required: false, defualt: undefined },
     items: {
-        ribbons: { type: Array<String>, required: false, default: [] }
+        ribbons: { type: Array<String>, required: false, default: [] },
+        uniform: { type: Array<String>, required: false, default: [] },
     },
     submited_data:{
         images: { type: Array<String>, required: false},
