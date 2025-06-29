@@ -6,32 +6,10 @@ This is to allow pictures to be uploaded and processed easier
 */
 
 import express, { type Request, type Response, type NextFunction, json } from "express";
-import multer, { type FileFilterCallback } from "multer";
 
 import { Requests } from "../../../../mongodb/dashboard/requests/request"; //sheesh
-import path from "path";
-
-
+import { utils } from "../../../../utils"; // like this is any better
 const Router = express.Router();
-
-
-
-const fileFilter = ( file: Express.Multer.File, cb: (error: Error | null, acceptFile: boolean) => void) => {
-    const allowedTypes = ['.pdf', '.jpg', '.jpeg', '.png', '.doc', '.docx'];
-    const extname = path.extname(file.originalname).toLowerCase();
-    
-    if (allowedTypes.includes(extname)) {
-        cb(null, true);
-    } else {
-        cb(new Error('Invalid file type'), false);
-    }
-};
-const uploads = multer({
-    limits: {
-        fileSize: 12 * 1024 * 1024 // 12MB limit
-    },
-    dest:"./temp/uploads/"
-} );
 
 
 
@@ -40,8 +18,7 @@ Router.get("/",(req,res)=>{
 
 })
 // @ts-ignore Must do or else gives bs error 
-Router.post("/",uploads.none(),async (req,res)=>{
-    
+Router.post("/",async (req,res)=>{
     console.log("aw hell")
     // heck ton of safeguards, the path shouldn't explode the server
     if(req.headers['content-type']==undefined){
@@ -74,6 +51,11 @@ Router.post("/",uploads.none(),async (req,res)=>{
     // also if u send wrong type of input then the server crashes.
     
     console.log(req.body);
+
+    if(utils.isObjectEmpty(req.body)){
+        res.status(400).send(`Empty Data, please sumbit something to work with dingus`);
+        return;
+    }
 
     // TODO: Add some validation before processin
     let request = new Requests({

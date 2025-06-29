@@ -1,7 +1,7 @@
 export let utils = {
     /**
      * Logs a boot error and terminates the process.
-     * 
+     *
      * @param {string} reason - The primary reason for the boot failure
      * @param {string} hint - Additional information about the error, and possible fixes (displayed in yellow)
      * @returns {never} - This function never returns, as it always terminates the process
@@ -12,5 +12,14 @@ export let utils = {
         console.log(reason)
         console.log('\x1b[33m%s\x1b[0m',hint)
         process.exit(1);
+    },
+    isObjectEmpty(obj:object) {
+        for (const prop in obj) {
+            if (Object.hasOwn(obj, prop)) {
+            return false;
+            }
+        }
+
+        return true;
     }
 }
