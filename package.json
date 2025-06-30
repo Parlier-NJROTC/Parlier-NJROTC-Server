@@ -17,24 +17,15 @@
     "dev": "bun --hot index.ts"
   },
   "dependencies": {
-    "@types/express-fileupload": "^1.5.1",
-    "@types/express-form-data": "^2.0.5",
     "@types/jsonwebtoken": "^9.0.9",
-    "@types/multer": "^1.4.13",
-    "@types/multiparty": "^4.2.1",
-    "busboy": "^1.6.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "express-fileupload": "^1.5.1",
-    "express-form-data": "^3.0.1",
     "express-session": "^1.18.1",
     "formidable": "^3.5.4",
     "googleapis": "^148.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1",
-    "multer": "^2.0.1",
-    "multiparty": "^4.2.3",
     "path": "^0.12.7",
     "socket.io": "^4.8.1"
   }

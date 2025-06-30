@@ -44,15 +44,17 @@ Router.post("/",async (req,res,next)=>{
         return;
     }
     // awasasasa
-     const form = formidable({});
+    // lord looking at the googleapi, im cooked.
+    const form = formidable({});
 
-    await form.parse(req, (err, fields, files) => {
-    if (err) {
-      next(err);
-      return;
-    }
-    res.json({ fields, files });
-  });
+    let data = form.parse(req, (err, fields, files) => {
+        if (err) {
+            next(err);
+            return;
+        }
+        res.json({ fields, files });
+    });
+    console.log(data)
 
     // asasas
 
@@ -70,7 +72,6 @@ Router.post("/",async (req,res,next)=>{
      * }
      */
     // also if u send wrong type of input then the server crashes.
-    
 
 
     if(utils.isObjectEmpty(req.body)){
