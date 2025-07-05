@@ -185,3 +185,6 @@ Dashboard-Frontened/README.md
 
 # the python enviorment welded to bun, but the weld is hollow and it feels like a cruschy lef
 pyVenvWelded
+
+# when was the last time I looked in here? Anyways the google auth that we don't want shown.
+credentials.json
